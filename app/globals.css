@@ -11,3 +11,8 @@ nav {
   text-decoration: none;
   letter-spacing: -100;
 }
+
+p,
+li {
+  letter-spacing: 0;
+}
