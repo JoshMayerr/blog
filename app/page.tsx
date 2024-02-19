@@ -8,8 +8,8 @@ export default function Home() {
       <div className="">
         <h1 className="my-0 font-extrabold tracking-tighter">Josh Mayer</h1>
         <p>
-          I'm obsessed with building an agent-run internet, writing passing Go
-          tests, and the GSW.
+          I&#39;m obsessed with building an agent-run internet, writing passing
+          Go tests, and the GSW.
         </p>
 
         <h3>Currently Working On</h3>
