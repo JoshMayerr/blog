@@ -8,8 +8,10 @@ export default function Home() {
       <div className="">
         <h1 className="my-0 font-extrabold tracking-tighter">Josh Mayer</h1>
         <p>
-          I&#39;m obsessed with building an agent-run internet, writing passing
-          Go tests, and the GSW.
+          I&#39;m currently obsessed with building an agent-run internet where I
+          no longer have to use websites with shitty UI or have to write shitty
+          React code. I also enjoy writing passing Go tests, the GSW, and
+          training for a marathon in April.
         </p>
 
         <h3>Currently Working On</h3>
@@ -43,6 +45,24 @@ export default function Home() {
           </li>
         </ul>
 
+        <h3>Press</h3>
+        <ul>
+          <li>
+            <Link
+              href={
+                "https://dailyfreepress.com/2023/03/02/bu-freshman-works-to-bring-networking-into-the-next-generation-with-ointtag/"
+              }
+            >
+              &quot;BU freshman works to bring networking into the next
+              generation with &lsquo;OintTag&rsquo;&quot;
+            </Link>
+            . This article was written as I was working on NFC tags to replace
+            business cards (called{" "}
+            <Link href={"https://ointapp.vercel.app"}>Oint</Link>), which was a
+            precursor to <Link href={"#Beme"}>Beme</Link>.
+          </li>
+        </ul>
+
         <h3>Other</h3>
         <ul>
           <li>
@@ -50,11 +70,10 @@ export default function Home() {
             and built their volleyball scoring application that serves over
             3,000 high school teams.
           </li>
-          <li>
-            Tried (but lost) to build{" "}
-            <Link href={"https://getbeme.com"}>Beme</Link> a phone to phone
-            contact sharing service like Bump. Using updated technology like
-            BLE.
+          <li id="Beme">
+            Tried to build <Link href={"https://getbeme.com"}>Beme</Link> an
+            updated phone to phone contact sharing service like Bump. It was
+            built with a mix of BLE and location services using Flutter.
           </li>
         </ul>
       </div>
