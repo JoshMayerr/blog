@@ -20,7 +20,7 @@ export default function Home() {
             Building real-time data infrastructure for an internet without
             websites. Founding team with{" "}
             <Link href={"https://tollbit.com"}>tollbit.com</Link>. We just
-            raised 6M.
+            raised a few million.
           </li>
           <li>
             Some <Link href={"/posts"}>writing</Link> (like every tech bro)
