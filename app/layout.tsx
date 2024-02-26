@@ -6,7 +6,7 @@ import { Analytics } from "@/components/analytics";
 import { ModeToggle } from "@/components/mode-toggle";
 import { NextResponse } from "next/server";
 import Script from "next/script";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata = {
   title: "Some Thoughts From Josh Mayer",
@@ -21,11 +21,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       {/* <Script src="https://tb-monitor.vercel.app/api/v1/1234-unique-id" /> */}
-      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
-        <GoogleAnalytics
-          GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
-        />
-      ) : null}
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || ""} />
+
       <body
         className={`antialiased min-h-screen bg-white dark:bg-black text-slate-900 dark:text-slate-50 font-serif tracking-tighter`}
       >
