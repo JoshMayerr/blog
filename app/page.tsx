@@ -30,17 +30,24 @@ export default function Home() {
         <h3>Past Work</h3>
         <ul>
           <li>
-            Worked on{" "}
-            <Link href={"https://home.sidelinehd.com/called-up"}>
-              Sideline HD (aquired)
-            </Link>{" "}
-            and built their volleyball scoring application that serves over
-            100,000 high school teams.
-          </li>
-          <li>
             Built <Link href={"https://sunflowers.dev"}>sunflowers.dev</Link>.
             An internship application spray and pray bot for over 8,000 students
-            in two months. <span className="text-primary">(aquired)</span>
+            in two months. (
+            <Link
+              href={
+                "https://www.linkedin.com/posts/jooshmayer_super-hyped-to-share-that-my-latest-project-activity-7125333989392822272-psWC"
+              }
+            >
+              acquired
+            </Link>
+            )
+          </li>
+          <li>
+            Worked on <Link href={"https://sidelinehd.com"}>Sideline HD</Link>{" "}
+            and built their volleyball scoring application that serves over
+            100,000 high school teams. (
+            <Link href={"https://home.sidelinehd.com/called-up"}>acquired</Link>
+            )
           </li>
           <li>
             Built{" "}
@@ -58,6 +65,16 @@ export default function Home() {
           <li>
             <Link
               href={
+                "https://www.axios.com/2024/03/05/tollbit-8-million-publisher-ai-marketplace/"
+              }
+            >
+              Tollbit raises $7 million to solve the AI vs. publisher conflict
+            </Link>
+            . A Dan Primack article written to announce our fundraise.
+          </li>
+          <li>
+            <Link
+              href={
                 "https://dailyfreepress.com/2023/03/02/bu-freshman-works-to-bring-networking-into-the-next-generation-with-ointtag/"
               }
             >
@@ -67,16 +84,16 @@ export default function Home() {
             . This article was written as I was working on NFC tags to replace
             business cards (called{" "}
             <Link href={"https://ointapp.vercel.app"}>Oint</Link>), which was a
-            precursor to <Link href={"#Beme"}>Beme</Link>.
+            precursor to Beme.
           </li>
         </ul>
 
         <h3>Other</h3>
         <ul>
           <li id="Beme">
-            Tried to build <Link href={"https://getbeme.com"}>Beme:</Link> an
-            updated phone to phone contact sharing service like Bump. It was
-            built with a mix of BLE and location services using Flutter.
+            Tried to build Beme: an updated phone to phone contact sharing
+            service like Bump. It was built with a mix of BLE and location
+            services using Flutter.
           </li>
           <li>
             I used to really love graphic design, so a lot of my design work is
