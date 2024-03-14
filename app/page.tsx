@@ -20,7 +20,7 @@ export default function Home() {
             Building real-time data infrastructure for an internet without
             websites. Founding team with{" "}
             <Link href={"https://tollbit.com"}>tollbit.com</Link>. We just
-            raised a few million.
+            raised ~$7 million from partners like AIX, Liquid2, LH, and OpCo.
           </li>
           <li>
             Some <Link href={"/posts"}>writing</Link> (like every tech bro)
@@ -30,9 +30,17 @@ export default function Home() {
         <h3>Past Work</h3>
         <ul>
           <li>
+            Worked on{" "}
+            <Link href={"https://home.sidelinehd.com/called-up"}>
+              Sideline HD (aquired)
+            </Link>{" "}
+            and built their volleyball scoring application that serves over
+            100,000 high school teams.
+          </li>
+          <li>
             Built <Link href={"https://sunflowers.dev"}>sunflowers.dev</Link>.
             An internship application spray and pray bot for over 8,000 students
-            in two months. <span className="text-primary">(Aquired)</span>
+            in two months. <span className="text-primary">(aquired)</span>
           </li>
           <li>
             Built{" "}
@@ -65,15 +73,19 @@ export default function Home() {
 
         <h3>Other</h3>
         <ul>
-          <li>
-            Worked at <Link href={"https://sidelinehd.com"}>Sideline HD</Link>{" "}
-            and built their volleyball scoring application that serves over
-            3,000 high school teams.
-          </li>
           <li id="Beme">
-            Tried to build <Link href={"https://getbeme.com"}>Beme</Link> an
+            Tried to build <Link href={"https://getbeme.com"}>Beme:</Link> an
             updated phone to phone contact sharing service like Bump. It was
             built with a mix of BLE and location services using Flutter.
+          </li>
+          <li>
+            I used to really love graphic design, so a lot of my design work is
+            on <Link href={"https://www.behance.net/jooshmayer"}>Behance.</Link>
+          </li>
+          <li>
+            I make{" "}
+            <Link href={"https://www.youtube.com/@jooshmayer"}>tutorials</Link>{" "}
+            on Youtube
           </li>
         </ul>
       </div>

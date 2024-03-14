@@ -49,6 +49,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   <h3 className="">Josh Mayer, 2024. San Francisco.</h3>
                 </div>
                 <div className="space-x-6 underline">
+                  <Link href="https://www.youtube.com/@jooshmayer">
+                    Youtube
+                  </Link>
                   <Link href="https://x.com/jooshmayer">X</Link>
                   <Link href="https://github.com/joshmayerr">GitHub</Link>
                   <Link href="https://linkedin.com/in/jooshmayer">
