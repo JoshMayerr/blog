@@ -1,4 +1,5 @@
 import { allPosts } from "@/.contentlayer/generated";
+import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { NextResponse } from "next/server";
 
@@ -20,7 +21,7 @@ export default function Home() {
           </Link>
           {post.description && <p className="mt-2 mb-1">{post.description}</p>}
           {post.date && (
-            <p className="my-0 no-underline">{post.date.substring(0, 10)}</p>
+            <p className="my-0 no-underline">{formatDate(post.date)}</p>
           )}
         </article>
       ))}

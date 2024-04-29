@@ -1,0 +1,43 @@
+---
+title: Dreaming up the details of an AI Internet
+description: Trying to realistically brainstorm how an agent-run internet would look and work.
+date: "2024-04-28"
+---
+
+⚠️ warning: still a work in progress
+
+> 'Tens of billions of agents on the internet will be normal'
+> -- <cite>Vinod Khosla</cite>
+
+Given the rise and recent hype surrounding everything consumer-facing AI, a natural follow-up question is: how can I apply this tech in my daily life? A future vision I think lots of people have in their head is this intelligent assistant that can basically execute any task you give it, kind of like Jarvis from Iron Man. Perplexity, Rabbit, Humane, Arc Browser, and every other application layer product being built right now are on a race to build the best assistant.
+
+On a fundamental level, they are each trying to build the go-to platform on which you interact with **AI agents**. Agents are the next cool thing: intelligent bots that can use external tools to complete tasks for you.
+ChatGPT convinced the world that LLM-based systems can impressively answer complex questions, and soon enough an app will show the world that an intelligent internet-enabled system can _do_ complex things. Sort of like read privileges to the internet with ChatGPT, and now read/write privileges with agents.
+
+So now, we can start to imagine what this internet run by agents might look like. Simple tasks like writing an email or more complex like booking a vacation, can all be done _for you_ based off natural language input. Instead of humans interacting with website UIs directly, humans only have to briefly enter a task into some surface like the Rabbit R1 and then it is executed.
+
+An internet full of these personal task assistants (agents) is the AI internet.
+
+Good, now we are up to speed. Let's dive into the details.
+
+First of all, what is an agent under the hood?
+
+Technically speaking, a simple agent by today's terms is a system that uses an LLM to call external functions. The LLM is what powers reasoning and decision making, and the external functions are what go out and execute the tasks. These functions could be using search engines to find answers to questions or maybe using the Google Calendar API to schedule a meeting.
+
+There are several models out there meant for this type of workflow. Command-R from Cohere and gpt4 both allow developers to input an API's schema, then when prompted, output parameters for you to execute the API call (There are also llama fine-tuned alternatives). To complete the flow, you return the response in your next prompt to the model which then generates a final message with the new data.
+
+This workflow is mainly coupled with RAG, but it is also used for Function Calling (as OpenAI calls it) which is the backbone of any agentic system right now.
+
+So an agent seems simple enough, it's just an LLM that has the ability to generate input parameters to some pre-defined external functions, which we can then execute and relay the output to the LLM.
+
+Although, this isn't the only possible way to build an agent. It may be the easiest, but the idea of agents was initially popularized by the [World of Bits](https://proceedings.mlr.press/v70/shi17a/shi17a.pdf) paper back in 2017 which tried to use RL to automate tasks on the web. Once the GPT API was released, Nat Friedman iterated on the existing idea of trying to automate the web, and implemented it with GPT-3, building [natbot](https://github.com/nat/natbot).
+
+Since then, there have been several startups all trying to build agents that can navigate to a normal website like jetblue.com and automatically book a flight for you. And all of these startups, at their core, use an LLM to make decisions, and external functions like "click BUY NOW button" to execute actions. Yes, there are many flavors of this like multimodal models but they all follow the same cycle.
+
+So, to build an AI internet there needs to be capable agents we can use. How close is our big vision of a perfect personal assistant? A good agent requires two components to work as we've seen already: reasoning and task execution.
+
+For the most part, ability to make decisions and reason is a result of how good foundation models are. I mean this part is basically the race to AGI. In that case, it's not really up to the application layer builders to worry whether GPT-5 or Llama4 will be good enough. If nothing else, the existing agentic products today prove that for many tasks current day models are nearly there. Andrew Ng recently described his ["AI Agentic moment"](https://twitter.com/AndrewYNg/status/1779606380665803144) much like his "ChatGPT Moment". So, in short, as developers let's just continue to hope these models get better and that will take care of the first component for us.
+
+This wasn't really possible with RL it seemed, and is perhaps a reason there is so much more focus on agents now, following natbot's footsteps.
+
+Assuming we can use the increasingly intelligent LLMs to plan complex tasks, execution is the main component to focus on.

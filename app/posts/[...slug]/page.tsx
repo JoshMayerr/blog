@@ -3,6 +3,7 @@ import { allPosts } from "contentlayer/generated";
 
 import { Metadata } from "next";
 import { Mdx } from "@/components/mdx-components";
+import { formatDate } from "@/lib/utils";
 
 interface PostProps {
   params: {
@@ -62,7 +63,7 @@ export default async function PostPage({ params }: PostProps) {
         </span>
         {post.date && (
           <p className="text-md my-0 text-slate-700 dark:text-slate-200">
-            {post.date.substring(0, 10)}
+            {formatDate(post.date)}
           </p>
         )}
       </div>

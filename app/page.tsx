@@ -1,6 +1,4 @@
-import { allPosts } from "@/.contentlayer/generated";
 import Link from "next/link";
-import { NextResponse } from "next/server";
 
 export default function Home() {
   return (
@@ -10,8 +8,8 @@ export default function Home() {
         <p>
           I&#39;m currently obsessed with building an agent-run internet where I
           no longer have to use websites with shitty UI or have to write shitty
-          React code. I also enjoy writing passing Go tests, the GSW, and
-          training for a marathon in April.
+          React code. I also enjoy watching the Warriors and training for a
+          marathon in April.
         </p>
 
         <h3>Currently Working On</h3>
