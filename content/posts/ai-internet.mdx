@@ -9,22 +9,26 @@ date: "2024-04-28"
 > 'Tens of billions of agents on the internet will be normal'
 > -- <cite>Vinod Khosla</cite>
 
+### What are we doing here
+
 Given the rise and recent hype surrounding everything consumer-facing AI, a natural follow-up question is: how can I apply this tech in my daily life? A future vision I think lots of people have in their head is this intelligent assistant that can basically execute any task you give it, kind of like Jarvis from Iron Man. Perplexity, Rabbit, Humane, Arc Browser, and every other application layer product being built right now are on a race to build the best assistant.
 
 On a fundamental level, they are each trying to build the go-to platform on which you interact with **AI agents**. Agents are the next cool thing: intelligent bots that can use external tools to complete tasks for you.
-ChatGPT convinced the world that LLM-based systems can impressively answer complex questions, and soon enough an app will show the world that an intelligent internet-enabled system can _do_ complex things. Sort of like read privileges to the internet with ChatGPT, and now read/write privileges with agents.
+ChatGPT convinced the world that LLM based systems can impressively answer complex questions, and soon enough an app will show the world that an intelligent internet-enabled system can _do_ complex things. Sort of like read privileges to the internet with ChatGPT, and now read/write privileges with agents.
 
-So now, we can start to imagine what this internet run by agents might look like. Simple tasks like writing an email or more complex like booking a vacation, can all be done _for you_ based off natural language input. Instead of humans interacting with website UIs directly, humans only have to briefly enter a task into some surface like the Rabbit R1 and then it is executed.
+So now, we can start to imagine what this internet run by agent might look like. Simple tasks like writing an email or more complex like booking a vacation, can all be done _for you_ based off a natural language input. Instead of humans interacting with website UIs directly, humans only have to briefly enter a task into some surface like the Rabbit R1 and then it is executed.
 
 An internet full of these personal task assistants (agents) is the AI internet.
 
 Good, now we are up to speed. Let's dive into the details.
 
+### What is an agent?
+
 First of all, what is an agent under the hood?
 
 Technically speaking, a simple agent by today's terms is a system that uses an LLM to call external functions. The LLM is what powers reasoning and decision making, and the external functions are what go out and execute the tasks. These functions could be using search engines to find answers to questions or maybe using the Google Calendar API to schedule a meeting.
 
-There are several models out there meant for this type of workflow. Command-R from Cohere and gpt4 both allow developers to input an API's schema, then when prompted, output parameters for you to execute the API call (There are also llama fine-tuned alternatives). To complete the flow, you return the response in your next prompt to the model which then generates a final message with the new data.
+There are several models out there meant for this type of workflow. Command-R from Cohere and GPT-4 both allow developers to input an API's schema, then when prompted, output parameters for you to execute the API call (There are also llama fine-tuned alternatives). To complete the flow, you return the response in your next prompt to the model which then generates a final message with the new data.
 
 This workflow is mainly coupled with RAG, but it is also used for Function Calling (as OpenAI calls it) which is the backbone of any agentic system right now.
 
@@ -34,10 +38,52 @@ Although, this isn't the only possible way to build an agent. It may be the easi
 
 Since then, there have been several startups all trying to build agents that can navigate to a normal website like jetblue.com and automatically book a flight for you. And all of these startups, at their core, use an LLM to make decisions, and external functions like "click BUY NOW button" to execute actions. Yes, there are many flavors of this like multimodal models but they all follow the same cycle.
 
+### Agents today
+
 So, to build an AI internet there needs to be capable agents we can use. How close is our big vision of a perfect personal assistant? A good agent requires two components to work as we've seen already: reasoning and task execution.
 
-For the most part, ability to make decisions and reason is a result of how good foundation models are. I mean this part is basically the race to AGI. In that case, it's not really up to the application layer builders to worry whether GPT-5 or Llama4 will be good enough. If nothing else, the existing agentic products today prove that for many tasks current day models are nearly there. Andrew Ng recently described his ["AI Agentic moment"](https://twitter.com/AndrewYNg/status/1779606380665803144) much like his "ChatGPT Moment". So, in short, as developers let's just continue to hope these models get better and that will take care of the first component for us.
+For the most part, ability to make decisions and reason is a result of how good foundation models are. I mean this part is basically the race to AGI. In that case, it's not really up to the application layer builders to worry whether GPT-5 or Llama4 will be good enough. If nothing else, the existing agentic products today prove that for many tasks current day models are nearly there.
 
-This wasn't really possible with RL it seemed, and is perhaps a reason there is so much more focus on agents now, following natbot's footsteps.
+Andrew Ng recently described his ["AI Agentic moment"](https://twitter.com/AndrewYNg/status/1779606380665803144) much like his "ChatGPT Moment". So, in short, as developers let's just continue to hope these models get better and that will take care of the first component for us. If you are skeptical that LLMs can live up to this hope, I encourage you to read this tweet/blogpost. This wasn't really possible with RL it seemed, and is perhaps a reason there is so much more focus on agents now, following natbot's footsteps.
 
-Assuming we can use the increasingly intelligent LLMs to plan complex tasks, execution is the main component to focus on.
+Assuming we can use the increasingly intelligent LLMs to plan complex tasks, execution is the real question mark that hasn't concretely been answered. I've already told you to just trust in the LLMs to tell the agent what to do, but now it's time to talk about how. All the sauce is in the external functions, surprisingly. Not the LLMs.
+
+### Heading into the future
+
+In order to build robust, general-purpose agents, they must be capable of these four core building blocks of task execution: data read, data write, authentication, and payments. Not surprisingly, these are the same for any user on the internet right now.
+
+#### Data read
+
+We've already seen data read with RAG. This framework is the most robust out of anything else with libraries like Llamaindex, Langchain, etc. One major question here is data access to copyrighted content and what if content providers want to make money off of agents scraping their content? For that I'll plug Tollbit and move on.
+
+#### Data write
+
+We've started to talk a lot about data write. This is what most startups are focusing on today. They are trying to build headless browser based bots that can execute any task on the internet similar to how a human would: navigating links, clicking buttons, and filling input fields. This would allow agents to have the capability to write an email for you or submit your homework. Personally, I believe that this effort to automate interactions with the existing UI is inefficient. Instead we should be focusing on converting web apps to public facing APIs that the agent can more easily interact with. Machine to machine. Solving authentication will make this easier. However, either methodology will in the end allow agents to actually execute tasks.
+
+#### Authentication
+
+The extent of which tasks an agent can actually execute is extremely limited without taking into account authentication. An agent that can only interact with public facing data would be pretty boring. If data write is API based, then this is a bit of an easier problem to solve. The easiest possible implementation would be that the end user goes out and gets all the API keys they need and inputs them into their assistant's platform (assuming it's local). Then, when the agent makes a call to the external API it can use the end user's credentials to make GET and POST requests.
+
+That's certainly not good enough. We want this to scale to any possible API and make it useful for non-technical people. To make this happen,
+
+Switching gears to automated web bots, it gets slightly more complicated. Because, in this realm, the agent needs to literally sign in exactly like a human would which means it needs to know in plaintext what a user's email/password is. Additionally, most websites right now are seriously against any automated bots filling in sign-in forms. Try it out right now and most sites will just block your IP or make you fill out a captcha. Which are both possible to spoof, but just seems slow.
+
+To get around this I think it's possible for an existing auth provider like Auth0 to add a new option to their Universal Logins and whatnot that could do the authentication of both the agent and the user. This would require the agent developers to also make their own Auth0 projects. However, it would allow a third party to manage the connection between the agents and the app.
+
+There is a startup right now called [anon](https://anon.com) that is taking a similar approach to be the Auth0 for agent authentication. This approach seems similar to how Plaid got started. They are essentially hard-coding a service on top of a finite list of external apps like LinkedIn and Uber. This allows developers to run agents while anon handles messing with captchas and the manual input of the user's email and password. To work, however, you have to make the end user sign into an anon modal for every individual external app (LinkedIn, Uber, etc).
+
+#### Payments
+
+To my knowledge, there is no one building here. My guess is because the first three building blocks are necessary for this make sense, but I predict many startups coming quite soon.
+
+### A typical AI internet user's workflow
+
+Putting everything together into a full execution lifecycle of a complex task.87
+
+### Going deeper
+
+#### Automated headless browsers vs. APIs
+
+#### Agent platforms vs. local assistant
+
+#### Turning an existing web app into an API/making an API public
