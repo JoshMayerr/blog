@@ -64,7 +64,7 @@ We've started to talk a lot about data write. This is what most startups are foc
 
 The extent of which tasks an agent can actually execute is extremely limited without taking into account authentication. An agent that can only interact with public facing data would be pretty boring. If data write is API based, then this is a bit of an easier problem to solve. The easiest possible implementation would be that the end user goes out and gets all the API keys they need and inputs them into their assistant's platform (assuming it's local). Then, when the agent makes a call to the external API it can use the end user's credentials to make GET and POST requests.
 
-That's certainly not good enough. We want this to scale to any possible API and make it useful for non-technical people. To make this happen,
+That's certainly not good enough. We want this to scale to any possible API and make it useful for non-technical people. To make this happen, (working on this)
 
 Switching gears to automated web bots, it gets slightly more complicated. Because, in this realm, the agent needs to literally sign in exactly like a human would which means it needs to know in plaintext what a user's email/password is. Additionally, most websites right now are seriously against any automated bots filling in sign-in forms. Try it out right now and most sites will just block your IP or make you fill out a captcha. Which are both possible to spoof, but just seems slow.
 
@@ -74,16 +74,24 @@ There is a startup right now called [anon](https://anon.com) that is taking a si
 
 #### Payments
 
-To my knowledge, there is no one building here. My guess is because the first three building blocks are necessary for this make sense, but I predict many startups coming quite soon.
+To my knowledge, there is no one building here. My guess is because the first three building blocks are necessary for this make sense, but I predict many startups coming quite soon. (working on this)
 
 ### A typical AI internet user's workflow
 
-Putting everything together into a full execution lifecycle of a complex task.87
+`Knowledge base (local) <--> Agent Terminal (local) <--> External Resources (APIs)`
 
-### Going deeper
+Putting everything together into a full execution lifecycle of a complex task. In my personal opinion, the actual surface that users interact with or what I'll call the Agent Terminal, should be a locally running model and locally rendered UI.
 
-#### Automated headless browsers vs. APIs
+This is why I think [tinycorp](https://tinygrad.org/#tinybox) is really cool because imagine if everyone could run their own personally owned and finetuned Llama7 model with no reliance on any external service. Might work in the short term, but I wouldn't be surprised if in the end a few large companies end up building online Terminals that serve the majority of users. Maybe Arc or Perplexity.
 
-#### Agent platforms vs. local assistant
+Within this hypothetical workflow, I have my own local model thats running on my machine that has access to all my files, notes, etc. Much less of a privacy concern if everything is local. I can also really start to treat it like a second brain or personal assistant!
 
-#### Turning an existing web app into an API/making an API public
+Now, what happens when I actually want my assistant to do something for me. Well now we find ourselves back to the topic of agents. Similarly as we've already discussed I'd give my assistant a query like "Book a JetBlue flight for next Wednesday and email a receipt of the flight to the boys."
+
+It would then go out ideally using the JetBlue API (or headless browser) to book the flight using the contact information already stored locally in my Knowledge Base, book the flight with my payment info also in KB, and already have the context of who "the boys" to send an email.
+
+The Knowledge Base could be as simple as a locally hosted vector DB like Chroma (big fan) thats persists details that can be retrieved as important context given the user query.
+
+And there it is! Still no where near HD detail, but at least what I think could be a really cool workflow that I would enjoy using.
+
+In the end, who knows if any of this stuff will actually make a significant impact to anyone's daily life. If anything, this was a fun exercise to go through myself.
