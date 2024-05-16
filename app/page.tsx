@@ -52,8 +52,8 @@ export default function Home() {
             <Link href={"https://top.gg/bot/516340661247541248"}>
               Scrimius Bot
             </Link>
-            . A Discord bot with 100,000 users that paired Fortnite gamers
-            together in the same match.{" "}
+            when I was 14. A Discord bot with 100,000 users that paired Fortnite
+            gamers together in the same match.{" "}
             <span className="text-primary">(Oldie but goodie)</span>
           </li>
         </ul>
