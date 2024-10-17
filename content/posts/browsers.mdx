@@ -1,0 +1,33 @@
+---
+title: Why browsers are not fundamental to agents
+description: And why giving agents the right tools is what matters
+date: "2024-10-16"
+---
+
+Ever since Nat Friedman's [NatBot](https://github.com/nat/natbot/commits/main/) demo in 2022, the world of agents has been obsessed with solving this extremely difficult problem: how can we use LLMs as reasoning engines to control a browser, just like a human? This is entirely the wrong question to be asking.
+
+To be clear, I don't think anyone is wrong for working on this question. The demos that have been built give a glimpse into the future that sf has been salivating over. Even startups like [Rabbit](https://www.rabbit.tech/) seem to be making real progress.
+
+However, if you think a little farther into the future of what could exist, it makes no sense to me why browser automation is the ideal solution. I don't think this is really a contrarian opinion among most people, except believing it's important now and that there is a viable alternative maybe is.
+
+The natural alternative to browsers are underlying APIs. Instead of clicking buttons on a page, an agent should just call the real backend endpoints of the service (e.g. DoorDash).
+
+No matter how quick LLM inference gets, there is still a universal constant to how long it takes to click on buttons and fill out input fields. Browser automation is guaranteed to be slower in the long run.
+
+I even emailed Nat Friedman asking a similar question to this topic and this was his response:
+
+"""Most interfaces are designed for humans, and so if you can interact with those, you are guaranteed to be able to do everything a human can do, for which a public API might not exist."""
+
+I agree with the rationale here, but what's missing is that it is _at most_ just as hard of a problem to connect agents to underlying APIs, than to pretend to be a human on the web. It may be a slightly different type and less technical problem, but it is possible. So if you're defaulting to what's popular, it's easier to assume that's the only way.
+
+This is completely disregarding all the eventual legal battles to come from pretending to be a human user on most of these websites. I am certainly not qualified to make conclusions on this topic, but here is a quote directly from the DoorDash [ToS](https://help.doordash.com/legal/document?type=cx-terms-and-conditions&region=US&locale=en-US) that could be a problem for browsers.
+
+"""You will not deep-link to our websites or access our websites manually or with any robot, spider, script, web crawler, extraction software, automated process, service, tool, and/or device to scrape, copy, index, frame, or monitor any portion of our Services or websites or any content on or available through our Services or websites, and you will not attempt any of the foregoing."""
+
+Despite all of these points, some people I talk to just don't believe it's possible with the state of foundation models to build a useful enough agent where any of this matters. Unsurprisingly, I also disagree with that.
+
+With browsers, most of the infrastructure code required to get the LLM to accurately make decisions is highly model dependent. With API calls, it's not. Tool calling is somewhat of a hack, but not nearly as much as controlling a browser. Tool calling is baked "natively" into the model with fine tuning.
+
+The toolbox is the real key to making agents better. Give agents the right tool for the job, and the LLM can easily do the rest.
+
+P.S. Obviously, this is what I'm building towards. For your sake, don't.

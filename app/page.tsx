@@ -1,24 +1,40 @@
 import Link from "next/link";
-
+import Image from "next/image";
 export default function Home() {
   return (
-    <div className="max-w-3xl prose dark:prose-invert mt-8">
+    <div className="max-w-3xl prose dark:prose-invert mt-6">
       <div className="">
+        <div className="relative inline-block mb-6">
+          <Image
+            src={"/asciijosh.png"}
+            alt="Josh Mayer"
+            width={100}
+            height={100}
+            className="rounded-xl bg-black my-0"
+            draggable={false}
+          />
+          <div className="absolute inset-0 hover:bg-gradient-to-tr from-blue-400 to-emerald-400 mix-blend-multiply rounded-xl transition duration-300 animate-pulse"></div>
+          {/* <div className="absolute inset-0 bg-blue-500 opacity-50 rounded-xl  hover:bg-emerald-500"></div> */}
+        </div>
+
         <h1 className="my-0 font-extrabold tracking-tighter">Josh Mayer</h1>
         <p>
           I&#39;m currently obsessed with building an agent-run internet where I
           no longer have to use websites with shitty UI or have to write shitty
-          React code. I also enjoy watching the Warriors and training for a
-          marathon in April.
+          React code. I also enjoy watching the Golden State Warriors and
+          training for a marathon in April.
         </p>
 
         <h3>Currently Working On</h3>
         <ul>
           <li>
-            Building real-time data infrastructure for an internet without
-            websites. Founding team with{" "}
-            <Link href={"https://tollbit.com"}>tollbit.com</Link>. We just
-            raised ~$7 million from partners like AIX, Liquid2, LH, and OpCo.
+            Building infrastructure for an agent-run internet on the founding
+            team of <Link href={"https://tollbit.com"}>tollbit.com</Link>. We
+            just raised ~$?? million.
+          </li>
+          <li>
+            Researching delegated authorization for agents with Professor Sharon
+            Goldberg at BU.
           </li>
           <li>
             Some <Link href={"/posts"}>writing</Link> (like every tech bro)
@@ -51,7 +67,7 @@ export default function Home() {
             Built{" "}
             <Link href={"https://top.gg/bot/516340661247541248"}>
               Scrimius Bot
-            </Link>
+            </Link>{" "}
             when I was 14. A Discord bot with 100,000 users that paired Fortnite
             gamers together in the same match.{" "}
             <span className="text-primary">(Oldie but goodie)</span>
