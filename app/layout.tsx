@@ -22,7 +22,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       {/* <Script src="https://tb-monitor.vercel.app/api/v1/1234-unique-id" /> */}
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || ""} />
-
       <body
         className={`antialiased min-h-screen bg-white dark:bg-black text-slate-900 dark:text-slate-50 font-serif tracking-tighter`}
       >

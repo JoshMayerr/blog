@@ -28,9 +28,8 @@ export default function Home() {
         <h3>Currently Working On</h3>
         <ul>
           <li>
-            Building infrastructure for an agent-run internet on the founding
-            team of <Link href={"https://tollbit.com"}>tollbit.com</Link>. We
-            just raised ~$?? million.
+            Infrastructure for agents to access licensed data and take actions
+            at scale, called <Link href={"https://tollbit.com"}>TollBit</Link>.
           </li>
           <li>
             Researching delegated authorization for agents with Professor Sharon
@@ -79,12 +78,22 @@ export default function Home() {
           <li>
             <Link
               href={
+                "https://www.axios.com/2024/10/22/ai-startup-tollbit-media-publishers/"
+              }
+            >
+              Exclusive: AI startup TollBit raises $24M series A
+            </Link>
+            . A Sara Fischer article written to announce our Series A fundraise.
+          </li>
+          <li>
+            <Link
+              href={
                 "https://www.axios.com/2024/03/05/tollbit-8-million-publisher-ai-marketplace/"
               }
             >
               Tollbit raises $7 million to solve the AI vs. publisher conflict
             </Link>
-            . A Dan Primack article written to announce our fundraise.
+            . A Dan Primack article written to the seed round.
           </li>
           <li>
             <Link
