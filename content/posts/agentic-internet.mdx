@@ -4,26 +4,54 @@ description: More detailed examples of how agents can interact with the internet
 date: 2025-01-15
 ---
 
-Even though we're dreaming, let's start with a fact. AGI is on its way. All of the largest tech companies are building multi-gigawatt datacenters with their own power plants to train the largest models possible.
+Even though we're dreaming, let's ground ourselves with a fact: The largest tech companies are building multi-gigawatt datacenters, complete with their own power plants to train the largest models possible. AGI is the goal.
 
-If you believe that, there's still one more prerequisite belief. No matter how intelligent a model, it is only as useful and valuable as the tasks it can accomplish. With no outside connection, a model just running locally has very little chance at justifying the billions of dollars being spent to train them. Justifying that money being spent means building revenue generating applications on top of foundation models. Whether or not models are classified as AGI, 2025 seems to be a make or break year to see these applications of AI happen.
+If you believe that, there's one more critical belief to consider: no matter how intelligent a model is, it's only as useful as the tasks it can accomplish. A model running locally with no outside connection can hardly justify the billions of dollars being spent to train it. To justify that investment, we need revenue-generating applications built on top of these foundation models. Whether or not we call them AGI, 2025 feels like a make-or-break year to see these applications of AI come to life.
 
-This means that applications that use the latest foundation model, aka agents, need to interact with the world and internet. I've been calling this the agentic internet.
+For that to happen, applications using foundation models—let's call them agents—must interact with the world and the internet. I've been calling this the _agentic internet_.
 
-The best practice for how to build agents that do this today is still a debate. I've already written about [why browsers are not fundamental to agents](/posts/browsers). It's not about scraping websites or automating UI interactions. It's about creating standardized ways for AI agents to perform real-world tasks. Taking this stance, we need agents to be able to programmatically connect to and interact with existing web services.
+The best practices for building agents like this are still up for debate. I've already written about [why browsers aren't fundamental to agents](https://chatgpt.com/posts/browsers). It's not about scraping websites or automating UI interactions—it's about creating standardized ways for AI agents to perform real-world tasks. For that, agents need to programmatically connect to and interact with web services.
 
-Instead of websites being the only frontend of most services on the internet, special APIs will be too. Agent facing APIs could become a secondary frontend that services support. These APIs allow agents to easily do things on the internet as first class citizens.
+In this vision, APIs become as essential as websites themselves. Agent-facing APIs could serve as a secondary storefront for online services, allowing agents to interact with the internet as first-class citizens.
 
-There are many classic examples of agents connecting to the outside world with simple examples. ChatGPT today is one of them. When a user asks about a realtime topic like the news, it has access to some sort of web search API where it can scrape articles and pull that information into context.
+Take a simple example: ChatGPT. When asked about a real-time topic like the news, it accesses a web search API, scrapes articles, and pulls that information into context. That's a starting point, but it's limited. It's one tool, one connection. I want to explore more complex use cases—ones that involve authorization, tool searching, human-in-the-loop systems, and more. These examples demonstrate what a truly useful agent could look like—an agent that thrives in the agentic internet.
 
-That's obviously a simplified example where the agent only has access to one tool it can make use of. I want to explore a few examples that involve authorization, tool searching, human-in-the-loop, and others that demonstrate what an actually useful agent could look like. An agent that actually works as a part of the agentic internet.
+### Example: Dropshipping Army
 
-real examples
+This is a bit out there, but it's a concrete example of how this concept could work with today's tools.
 
-- book a flight (hello world)
-- optimize ads to the user during monday night football
-- build a dropshopping army
-  - programmatically test different items and generate ads
-- build a smma army
-- build a salesforce using your voice and charm
-- research solution to local plastic use in bay area among childrens products
+**The Goal**: Supercharge the dropshipping process. Typically, dropshipping involves finding a product on Alibaba to sell on social media at a higher price. Imagine an agent managing 100+ products, constantly A/B testing, optimizing, and selling.
+
+To do this, the agent would need to:
+
+- Brainstorm product ideas based on trends
+- Find items on Alibaba
+- Create and post FB/IG/TikTok ads
+- Build and manage a Shopify store
+- Analyze performance data and iterate
+
+Here's how we'd break it down:
+
+**1. Research:** The agent scrapes trending TikTok hashtags and uses those topics to search for products on Alibaba. This step builds a list of potential products to sell.
+
+**2. Ad Creation:** The agent uses product images from Alibaba as a starting point, enhanced by tools like Flux to generate engaging ads. It could even add typography or other elements for polish.
+
+**3. Ad Deployment:** The agent leverages the Facebook Ads API to launch campaigns.
+
+**4. Feedback Loop:** The agent continuously A/B tests ad performance, optimizing based on results. It becomes an endless cycle of data-driven decision-making, something even a large human team would struggle to do efficiently.
+
+**Implementation:** You could stitch this workflow together using a platform like CrewAI. Each step—research, ad creation, campaign management—becomes a “crew.” Webhooks pull in data, while APIs (Facebook Ads, image generation, maybe even Alibaba or a scraping solution) handle external connections.
+
+### Extensions and Thoughts
+
+This example has a clear goal and steps to achieve it. It's similar to solving technical problems today: _Plan → Code → Execute._ The difference is that success here isn't static—the agent improves over time by learning from data.
+
+If you squint, you can take this further. What if I didn't have time to build this system myself? Could an LLM do it? The biggest blocker wouldn't be writing code—it would be setting up integrations with APIs like Facebook, TikTok, and Flux.
+
+This highlights why agent-specific APIs are so important. Agents should be able to discover and use tools dynamically, _at runtime_.
+
+But what if Alibaba says, “No way, bots can't scrape my site”? What if they instead offered APIs with a price tag for product specs or image access?
+
+That's the promise of agent-specific APIs. Developers don't scrape because they enjoy stealing—it's just the easiest way to access data today. If a simpler, transactional alternative existed, developers would gladly use it—especially if agents could integrate it themselves.
+
+This is the vision: enabling agents to build their own connections, navigate the internet intelligently, and unlock the full potential of the agentic internet.
