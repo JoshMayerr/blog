@@ -19,24 +19,24 @@ export default function Home() {
 
         <h1 className="my-0 font-extrabold tracking-tighter">Josh Mayer</h1>
         <p>
-          I&#39;m currently obsessed with building an agent-run internet where I
-          no longer have to use websites with shitty UI or have to write shitty
-          React code. I also enjoy watching the Golden State Warriors and
-          training for a marathon in April.
+          I&#39;m currently working on building an agent-run internet where I no
+          longer have to use websites with bad UI or write even worse React
+          code. I also enjoy watching the Golden State Warriors and training for
+          a marathon in April.
         </p>
 
         <h3>Currently Working On</h3>
         <ul>
           <li>
-            Infrastructure for agents to access licensed data and take actions
-            at scale, called <Link href={"https://tollbit.com"}>TollBit</Link>.
+            Infrastructure for agents to access data and take actions at scale,
+            called <Link href={"https://tollbit.com"}>TollBit</Link>.
           </li>
           <li>
             Researching delegated authorization for agents with Professor Sharon
             Goldberg at BU.
           </li>
           <li>
-            Some <Link href={"/posts"}>writing</Link> (like every tech bro)
+            Some unpolished <Link href={"/posts"}>writing</Link>
           </li>
         </ul>
 
