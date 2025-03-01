@@ -1,0 +1,30 @@
+---
+title: The Nullspace of the Internet
+description: An familiar alternative approach
+date: "2025-02-28"
+---
+
+There are two main thought camps that I have seen floating around among other agent enthusiasts:
+
+1. agents should rely on the same internet infrastructure as humans (web automation)
+2. agents should rely on calling APIs
+
+Both of these are wrong in my opinion.
+
+The web was not built for bots to be first class citizens. This simple fact causes many problems which makes both of these goals extremely difficult. To understand why, it's easier to rewind back to 2009.
+
+At this time, a legendary programmer and activist Aaron Swartz popularized the idea of the Programmable Web. The goal of it being to motivate all services to support APIs in addition to web pages, thus allowing all programmers to create their own applications and remixes other services on the web. Making every site programmable.
+
+Unfortunately, the forces Swartz warned about—corporate control and walled gardens—prevailed. Many companies realized open APIs could cannibalize their business models or reduce control over their platforms. The economic incentives for maintaining public APIs disappeared as sites prioritized monetization through ads, subscriptions, and data collection. As a result, the internet transformed from an open platform into the world's primary engine for extracting commercial value.
+
+Returning to present day, we see the stark reality: only a handful of well-maintained developer-facing APIs exist (think Stripe, GitHub, or Cloudflare), while giants like Twitter/X have drastically restricted their APIs behind paywalls. Meanwhile, most web pages are now tightly integrated with business models dependent on human attention—tracking pixels, targeted ads, engagement metrics, and subscription funnels. When bots visit these pages, they consume resources without generating revenue, creating an inherent conflict. This fragmented landscape is exactly the outcome Swartz cautioned against: a web optimized for commercial extraction rather than programmable interoperability.
+
+Because of this current state of the internet, I think it is difficult to expect bots to effectively navigate the same web as humans, while also unreasonable to think an entirely new web can be made specifically for bots.
+
+I propose a middle ground, hidden in between these two extremes.
+
+Among this in between state, bots should be able to roam freely, either consuming APIs OR automating web pages. However, both resources should be published specifically to interface with agents. By mixing the consumers of the application, it causes problems for both sides.
+
+All services will need to interface exclusively with agents. These services could be APIs that run on MCP servers, or they could be web pages that remove all there ads to reduce load times and server costs.
+
+The main idea is that the same economic forces that shaped the internet as predicted by Aaron Swartz are not going away. The same invisible hands will remold existing services to support two user types, humans and agents. Separately. Building up the nullspace of the internet.
