@@ -45,7 +45,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="fixed bottom-0 w-full px-4 sm:px-10 pb-8 dark:mix-blend-difference font-bold">
               <nav className="text-sm flex justify-between space-x-6">
                 <div className="">
-                  <h3 className="">Josh Mayer, 2024. San Francisco.</h3>
+                  <h3 className="">
+                    Josh Mayer, {new Date().getFullYear()}. San Francisco.
+                  </h3>
                 </div>
                 <div className="space-x-6 underline">
                   <Link href="https://www.youtube.com/@jooshmayer">
