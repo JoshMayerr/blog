@@ -5,15 +5,15 @@ export default function Home() {
     <div className="max-w-3xl prose dark:prose-invert mt-6">
       <div className="">
         <div className="relative inline-block mb-6">
-          <Image
+          {/* <Image
             src={"/asciijosh.png"}
             alt="Josh Mayer"
             width={100}
             height={100}
             className="rounded-xl bg-black my-0"
             draggable={false}
-          />
-          <div className="absolute inset-0 hover:bg-gradient-to-tr from-blue-400 to-emerald-400 mix-blend-multiply rounded-xl transition duration-300 animate-pulse"></div>
+          /> */}
+          {/* <div className="absolute inset-0 hover:bg-gradient-to-tr from-blue-400 to-emerald-400 mix-blend-multiply rounded-xl transition duration-300 animate-pulse"></div> */}
           {/* <div className="absolute inset-0 bg-blue-500 opacity-50 rounded-xl  hover:bg-emerald-500"></div> */}
         </div>
 
