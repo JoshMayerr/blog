@@ -1,7 +1,71 @@
 ---
-title: Free or open, not both
-description: Agents will bring market pressures that break the open web, and what comes next.
+title: What happens when agents break the free and open web?
+description: An examination of market pressures creating a new iteration of the internet with unique economic principles.
 date: "2025-07-21"
 ---
 
-the free and open web is no longer possible. there will be orders of magnitude more bots on the internet than humans. on this new internet, some of these bots will be bad, trying to scrape content without permission or pretending to be a human they aren't. some will be good, acting on behalf of real humans. how could the internet possibly know who to block and who not to? that's the wrong question. the correct solution is to treat good bots as first-class citizens. block everyone, prove yourself for access. this is imperative for all ads-based businesses. with less human traffic, and more bot traffic ads will become worthless. content publishers and social media are the first to feel this problem. apis too. reddit turning off the api, x making theirs extremely expensive. the final segment to face this are services like uber and airbnb. they are not safe in the long run. both bad bots and good bots want to automate their platforms. bad bots to scrape, and good bots to abstract away the research and checkout process. the problem for uber is that the interface with which users interact is extremely valuable to them. letting browsers agents use stagehand to click buttons autonomously means they cant effectively upsell or convert to subscriptions that they rely on. their response right now is probably to increase their cybersecurity efforts to block all non human users. but as more people use chatgpt agent mode to book their jetblue flights, and as agents get more popular it will be very difficult only let good bots through, with proper access. even if cloudflare successfully has a verified hostname registry of agents, who will decide if my browser agent has authorization to click the "add to cart" button but not the "buy now"? all three categories of internet business share the same fate: your service is either free, or it is open. it cannot be both. if something is free and open, agents will abuse the platform with no meaningful way of building a platform useful for users. something can be free, but gated off to the rest of the internet. or, it can be open, but monetization is the bottleneck that equilibrates usage, and fairly supports the ecosystem. as services trend in this direction, their form factors will similarly change to reflect the new market dynamics. they will all have to look like agent-facing apis. (this is truly what makes mcp interesting, although mcp may not be the protocol that ultimately remains). an agent-facing api treats bots on the internet as first class users. all three internet business categories will transition to an agent-facing api with a usage based pricing model. i predict the pricing will be extremely dynamic and pressure sensitive. nothing like usage based pricing today. these apis will flip the cybersecurity cat and mouse game on its head. any bot is welcome, as long as you pay. in the long run this is favorable for both sides, as the price of scraping continues to increase. why not just have a direct way to access the service instead of a bot pretending to be a human? businesses like instacart may not feel much pressure right now because they aren't entirely open. a phone number is required to make an account. but, a site like reddit spends an incredible amount of money serving pages to crawlers and blocking bad bots. what if they just shut the site down and put up an api for a fair price? so, these agent-facing applications can boil down to a few properties: idk. the most interesting part of how these new internet applications could be built is that by using a standard open protocol, any type of agent will be able to interact with any service. a huge bottleneck of software that build software is authorization and access. stablecoins can solve both monetization and this problem. stablecoins offer a way to programmatically exchange value between the agent's wallet and the service. the "checkout" experience on the internet today is not built for bots. letting a browser agent input credit card details into a stripe webpage is way to brittle. but this experience is prevalent not just in ecommerce, but also in using apis today. using any api requires presumably a human to create an account and buy api credits. this entire flow was built 20 years ago for purchasing real world items. stablecoins are built to support digital transactions. therefore, it is clear that agent facing apis will be accessed using crypto based payments and authorization.
+> The remarkable social impact and economic success of the Internet is in many ways directly attributable to the architectural characteristics that were part of its design. The Internet was designed with no gatekeepers over new content or services [(Vint Cerf)](https://en.wikipedia.org/wiki/Vint_Cerf)
+
+The free and open web is no longer possible. Within 2-3 years, bot traffic will likely reach 80-90% of all internet activity, fundamentally destroying current business models. The solution isn't better bot detection. It's building an internet designed for agents, with accompanying new business models.
+
+Bot traffic already accounts for 50% of all web activity today, and this trend is only accelerating in tech today [1]. VCs invested $90B into AI startups building agents in the first half of 2025 [2]. Big tech is buying in too with protocols like MCP and NLWeb, as well as products like Google's Project Mariner, OpenAI's ChatGPT Agent, and Anthropic's Deep Research.
+
+The common mentality is that web security needs more investment to keep the bots away. This cat and mouse game of analyzing incoming traffic to prove humanness is unnecessary. The correct solution is to treat good bots (agents) as first-class citizens by giving them a purpose-built path for good bots to take.
+
+Consider this scenario: an AI agent books a flight for you on JetBlue vs. a scraping bot harvesting flight prices for a competitor. Both perform similar actions, but one serves a legitimate user while the other extracts value without compensation. As AI sophistication increases, the behavioral patterns between legitimate agents and human users become indistinguishable. Current detection methods that rely on behavioral, traffic, and fingerprinting analysis will inevitably fail as agents perfect human-like interactions. That is a consequence of them being useful, after all. How could the internet possibly know who to block and who not to? What happens with the internet is 99% autonomous traffic?
+
+Almost all internet businesses will have to face this question. There are two main categories of these on the web. Content publishers and service providers.
+
+#### Content's Next Question
+
+Content providers are the most free and open businesses on the web, making them the most sensitive to shifting dynamics. Take traditional media, publishers are already seeing dramatic revenue impacts as AI summarization tools extract content without driving traffic to their sites. They rely on referral traffic from Google to get _human_ eyeballs onto their site.
+
+However, Perplexity, ChatGPT, etc. are extremely popular for reading 20 sites and summarizing the results so that the user doesn't have to land on the publisher's page. While AI summarization represents just one use case for consumer AI, it's already having devastating impacts on publisher revenue models.
+
+Publishers report RPMs (revenue per 1,000 page views) declining 20-55% year-over-year as bot traffic dilutes their audience quality, while bot-driven traffic already accounts for 30% of total worldwide ad spending, wasting $238.7 billion in 2024 alone [3, 4]. With less human traffic and more bot traffic, ads meant for humans and shown on the free and open web will become worthless.
+
+#### Service Providers Too
+
+The second segment to face this pressure are services like Uber, Airbnb, and social media platforms. They may be less free and open, given that you need to create an account in order to participate, but they will still face similar pressure in the long run.
+
+Both bad bots and good bots want to automate their platforms. Bad bots already do this to scrape and impersonate users (or influence elections). Good bots are becoming increasingly common and used to automate tasks on the user's behalf. One of the canonical demos for browser agents is to order a pizza or flight. As most consumers adopt this technology, good bots essentially accelerate the fundamental problem. In order for ChatGPT Agent to work effectively, it needs to adopt bad bot patterns. Today, it uses a human-like User Agent to avoid getting blocked. The more advanced ChatGPT Agent or any of the 100s of startups building in this direction get, the more they will be indistinguishable from bad bots, which are indistinguishable from human users.
+
+Another problem for Uber and the rest is that the interface with which users interact is extremely valuable to them. Uber's interface drives substantial additional revenue through strategic upsells (UberXL, priority pickup, etc.) and conversion optimization. Automating the iOS app is also explicitly against the DoorDash ToS. Letting browser agents use Stagehand to click buttons autonomously means they can't effectively upsell or convert to subscriptions that they rely on. When an agent handles booking, these conversion opportunities disappear entirely. If Uber and Lyft both had MCP servers that let you call rides, what would truly differentiate them? Their entire brand is built around the consumer app and interface.
+
+Their response right now is probably to increase their cybersecurity efforts to block what they can detect as non-human users. Even if Cloudflare successfully has a verified hostname registry of agents, who will decide if my browser agent has authorization to click the "add to cart" button but not the "buy now"?
+
+All categories of internet business share the same fate: **your service is either free, or it is open. It cannot be both.** If something is free and open, agents will abuse the platform with no meaningful way of building a platform useful for users. Something can be free, but gated off to the rest of the internet and reserved only for humans that verify their identity, for example. Or, it can be open, and monetization is the bottleneck that equilibrates usage and fairly supports the ecosystem.
+
+As services increasingly face pressure from more autonomous actors on the web, their form factors will similarly change to reflect the new market dynamics. They will all have to look like agent-facing APIs. (This is truly what makes MCP interesting, although MCP may not be the protocol that ultimately remains.)
+
+An agent-facing API treats bots on the internet as first-class users. Both internet business categories will transition to an agent-facing API with a usage-based pricing model. I predict the pricing will be extremely dynamic and pressure sensitive. Nothing like usage-based pricing today.
+
+These APIs will flip the cybersecurity cat and mouse game on its head. Any bot is welcome, as long as you pay or have some valid criteria. In the long run this is favorable for both sides, as the price of scraping continues to increase. Why not just have a direct way to access the service instead of a bot pretending to be a human? Bots will follow the path of least resistance.
+
+Giving bots a purpose-built way to interact with internet businesses will dramatically increase the number of good bots. Most bad bots are only built that way because there is no "good" way to do what they need, as we saw with ChatGPT Agent.
+
+#### A potential open solution
+
+So, these agent-facing applications can boil down to a few properties: **API-first, gated access, and standardized.** The most interesting part of how these new internet applications could be built is that by using a standard open protocol, any type of agent will be able to interact with any service. A huge bottleneck of software that builds software is authorization and access.
+
+Stablecoins can solve both monetization and this access problem. Stablecoins offer a way to programmatically exchange value between the agent's wallet and the service. The "checkout" experience on the internet today is not built for bots. Letting a browser agent input credit card details into a Stripe webpage is way too brittle.
+
+Credit cards require human verification steps (3D Secure, ZIP code validation, manual card entry) that break automated flows. Agents can't solve CAPTCHAs, handle SMS verification, or manage the complex state required for traditional payment flows. Stablecoins enable direct wallet-to-wallet transfers with programmable conditions, perfect for autonomous agents.
+
+But this experience is prevalent not just in ecommerce, but also in using APIs today. Using any API requires presumably a human to create an account and buy API credits. This entire flow was built 20 years ago for purchasing real-world items. Stablecoins are built to support digital transactions.
+
+#### Conclusion
+
+Therefore, it is clear that agent-facing APIs will be accessed using crypto-based payments and authorization. It may be some time before agents are real actors in the internet economy and buying products on our behalf, but it is necessary for bots to be able to access gated content and services.
+
+The transformation is already beginning. Companies have two choices: adapt by building agent-first interfaces with fair pricing, or spend increasing amounts fighting an unwinnable cybersecurity war against automation.
+
+The winners will be those who embrace bots as primary customers rather than enemies. The agent-facing internet sounds awesome.
+
+[1] https://www.thalesgroup.com/en/worldwide/security/press_release/bots-now-make-nearly-half-all-internet-traffic-globally
+
+[2] https://news.crunchbase.com/venture/state-of-startups-q2-h1-2025-ai-ma-charts-data/
+
+[3] https://digiday.com/media/the-programmatic-open-marketplace-is-faltering-but-publishers-see-a-bright-spot-in-private-programmatic-deals/
+
+[4] https://www.designrush.com/news/bot-traffic-drains-ad-budget-costing-businesses-billions
