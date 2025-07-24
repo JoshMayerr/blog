@@ -3,7 +3,7 @@ import { allPosts } from "contentlayer/generated";
 
 import { Metadata } from "next";
 import { Mdx } from "@/components/mdx-components";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getBaseUrl } from "@/lib/utils";
 
 interface PostProps {
   params: {
@@ -31,7 +31,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = getBaseUrl();
 
   // Check if post has a custom OG image
   const ogImage = (post as any).ogImage;

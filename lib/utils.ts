@@ -1,12 +1,22 @@
-export function formatDate(dateString: string) {
-  const date = new Date(dateString);
-
-  // Convert to a readable format
-  const readableString = date.toLocaleDateString("en-US", {
-    year: "numeric", // "2024"
-    month: "long", // "February"
-    day: "numeric", // "1"
+export function formatDate(input: string | number | Date): string {
+  const date = new Date(input);
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
   });
+}
 
-  return readableString;
+export function getBaseUrl() {
+  if (process.env.NODE_ENV === "production") {
+    // For Vercel deployments
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+    // For custom domains
+    return "https://joshmayer.net";
+  }
+
+  // Development environment
+  return "http://localhost:3000";
 }
