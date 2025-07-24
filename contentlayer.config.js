@@ -44,6 +44,9 @@ export const Post = defineDocumentType(() => ({
       type: "date",
       required: true,
     },
+    ogImage: {
+      type: "string",
+    },
   },
   computedFields,
 }));
@@ -63,6 +66,9 @@ export const Drafts = defineDocumentType(() => ({
     date: {
       type: "date",
       required: true,
+    },
+    ogImage: {
+      type: "string",
     },
   },
   computedFields,
