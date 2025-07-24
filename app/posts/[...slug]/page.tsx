@@ -31,10 +31,39 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+  // Create dynamic OG image URL with post content
+  const ogImageUrl = new URL("/api/og", baseUrl);
+  ogImageUrl.searchParams.set("title", post.title);
+  if (post.description) {
+    ogImageUrl.searchParams.set("description", post.description);
+  }
+
+  const metadata: Metadata = {
     title: post.title,
     description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      images: [
+        {
+          url: ogImageUrl.toString(),
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [ogImageUrl.toString()],
+    },
   };
+
+  return metadata;
 }
 
 export async function generateStaticParams(): Promise<PostProps["params"][]> {
