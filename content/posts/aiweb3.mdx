@@ -1,0 +1,27 @@
+---
+title: Dreaming up the details of an Agentic Internet 3
+description: Tying recent announcements to the future vision everyone is building towards.
+date: "2025-10-6"
+---
+
+A couple huge things have happened since [part 1](/posts/aiweb) and [part 2](/posts/aiweb2). Cloudflare annouced a [partnership](https://www.cloudflare.com/press/press-releases/2025/cloudflare-and-coinbase-will-launch-x402-foundation/) with Coinbase, OpenAI announced ACP in [partnership](https://www.agenticcommerce.dev/) with Stripe, and most importantly OpenAI announced the [App SDK](https://developers.openai.com/apps-sdk/).
+
+This edition strings together how these advancements relate, and how they are building towards the same Vision of the "Agentic Internet" (i dont like this name anymore) we started describing in [part 1](/posts/aiweb), inspired by the [Programmable Web](https://upload.wikimedia.org/wikipedia/commons/3/3f/Aaron_Swartz_s_A_Programmable_Web_An_Unfinished_Work.pdf).
+
+To understand the story connecting everything, it's easiest just to skip right to the end and build up intuition for what the Vision is. In one sentence, the Agentic Internet is an internet where services build for agents as the primary user. A lot of current day efforts are spent basically building agents that act as human users, on top of the (old) internet. I've talked a lot about [why browsers are not fundamental to agents](/posts/browsers) and why building for agents instead is very likely to happen. What that looks like and what happens when that takes place is more interesting. Which is what I'll get to towards the end of this.
+
+Turning back to the final Vision, the wild adoption of MCP actually supports it being correct. MCP was the first widespread example of important people explicitly building for agents. While only a select few today, it demonstrates that with correct incentives, services will want to optimize how agents interact with them.
+
+And just now, as OpenAI announces the App SDK, it shows how services will be reduced to data sources and aggregators. With 800M weekly active users, it feels like OpenAI has the power to implement any standard they want and let the rest of the internet follow. They have a scary amount of leverage.
+
+In a pessimistic Vision for the agentic web, chatgpt.com is the dominant "terminal" to access all the services out there. All those services expose some type of MCP server with the tools required, you or your delegated agent auth into that server, and that's just about how it ends up working. OpenAI is the interface into the agentic web, where everything just becomes a database and an mcp server in front of it. As a service provider, there's no point in worrying about your landing page, because all the traffic comes in through chatgpt.com. All interactions on the web are just moving data in between AWS instances via tool calls. Want to buy something? Buy it natively within the ChatGPT app using the Stripe integration. 800M weekly active users lets OpenAI decide who survives and who doesn't.
+
+I don't really love this outcome, but I do think it's possible.
+
+There are still services that need an incentive to plug into this ecosystem. That's where the other announcements come in. Cloudflare aims to block all "bad bots" (ones not acting on behalf of humans). With x402, they are basically saying services can allow bots through the blockade for a fee. This principle can be applied all across the web. This is something I talked about in [part 2](/posts/aiweb2).
+
+A more positive spin is that all the standards OpenAI et al are making are open. A2P is payment rail agnostic, App SDK is built on MCP, and x402 is another can be implemented by anyone. Viewed in this light, you can really start to see the new primitives emerging for a programmable web. I like to think of an MCP server as a programmable version of a website. Commerce is becoming possible on behalf of consumers too.
+
+Overall, I think it's cool to see the "stack" for the agentic web being built in real time. More and more people are getting on the same page about what it would unlock and what it might look like, which has lead to tangible progress. The ecosystem is still waiting for someone to tie it all together into something people actually want.
+
+`this is a raw reaction to openai dev day 2025`
