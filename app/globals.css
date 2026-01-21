@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
+@plugin "@tailwindcss/typography";
 
 h1,
 h2,
@@ -9,7 +9,7 @@ h4,
 nav {
   font-family: sans-serif;
   text-decoration: none;
-  letter-spacing: -100;
+  letter-spacing: -0.05em;
 }
 
 p,

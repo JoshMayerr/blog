@@ -1,5 +1,31 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
+import { getBaseUrl } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Josh Mayer",
+  description: "Personal blog and portfolio of Josh Mayer",
+  openGraph: {
+    title: "Josh Mayer",
+    description: "Personal blog and portfolio of Josh Mayer",
+    images: [
+      {
+        url: `${getBaseUrl()}/og-images/home.png`,
+        width: 1200,
+        height: 630,
+        alt: "Josh Mayer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Josh Mayer",
+    description: "Personal blog and portfolio of Josh Mayer",
+    images: [`${getBaseUrl()}/og-images/home.png`],
+  },
+};
+
 export default function Home() {
   return (
     <div className="max-w-3xl prose dark:prose-invert mt-6">
