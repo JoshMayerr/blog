@@ -4,110 +4,110 @@ description: understated effects of new content formats are very bad
 date: "2026-1-9"
 ---
 
-Since the Netflix documentary [*The Social Dilemma*](https://thesocialdillema.com), the "social media is bad" narrative became something that everyone understands, and at some level agrees with. But the argument presented in the documentary and what is now 
+Since the Netflix documentary [_The Social Dilemma_](https://thesocialdillema.com), the "social media is bad" narrative became something that everyone understands, and at some level agrees with. But the argument presented in the documentary and what is now
 accepted by most is largely already outdated and shortsighted. Short form content on Tiktok, Reels, and Youtube is significantly more destructive than social networking itself. This is something that people are loosely aware of, but don't
 necesarily care about enough.
 
-Being 21 years old, this contrast seems to me like what it must have been like smoking cigarettes back in the 90s or whatever era is most accurate. People know it's bad, but will easily find an excuse to rationalize 
+Being 21 years old, this contrast seems to me like what it must have been like smoking cigarettes back in the 90s or whatever era is most accurate. People know it's bad, but will easily find an excuse to rationalize
 the behavior. And it's incredibly easy because it's already so prevalent in society. It's woven into the culture. Every young person trend, or even common vocabulary comes directly from these apps. If you
 don't plug in, you're behind on what your friends find funny and popular.
 
 I don't want to act like I'm an exception to this. I am equally addicted and getting high with doomscrolling. For a long time, I've tried deleting both Instagram and Tiktok off my phone. But the crazy thing is that
-neither of those worked. Eventually, I started going on Instagram on my computer, and whenever I was really bored on the weekeends I would re-download Tiktok. 
+neither of those worked. Eventually, I started going on Instagram on my computer, and whenever I was really bored on the weekeends I would re-download Tiktok.
 
-It's not even just "the kids" that are in trouble. I would argue adults are more at risk becaues of their ignorance. Facebook has completely revamped the mobile app to favor short form, and Tiktok is increasingly popular among older demographics. 
+It's not even just "the kids" that are in trouble. I would argue adults are more at risk becaues of their ignorance. Facebook has completely revamped the mobile app to favor short form, and Tiktok is increasingly popular among older demographics.
 [Usage](https://civicscience.com/the-untapped-market-tiktoks-explosive-growth-beyond-traditional-demographics) grew from 2% to 26%
-from 2019 to 2025 among Americans 45 and older. 
+from 2019 to 2025 among Americans 45 and older.
 
-Anecdotally, I was recently on an SFO-BOS flight. On this 5 hour ride, I saw a man who was certainly 45+ scroll Tiktok from the second the wifi came on, to the second we landed. Wire to wire doomscroll. 
+Anecdotally, I was recently on an SFO-BOS flight. On this 5 hour ride, I saw a man who was certainly 45+ scroll Tiktok from the second the wifi came on, to the second we landed. Wire to wire doomscroll.
 
 I don't think I would be serving anyone by simply contributing to the washed out idea that social media is bad. Hopefully I've gotten towards the idea that short form content is bad, but I want to be even more specific.
 
-Sam Altman recently said on a [podcast](https://youtu.be/aYn8VKW6vXA?si=X-dClaybcKa16Utv&t=593) (Theo Von's of all people) that "I 
+Sam Altman recently said on a [podcast](https://youtu.be/aYn8VKW6vXA?si=X-dClaybcKa16Utv&t=593) (Theo Von's of all people) that "I
 think this scrolling—the kind of short video feed dopamine hit—feels like it’s probably messing with kids’ brain development in a super deep way". This was in response to a question asking what parts of tech he is most worried about.
 
 So at this point I think everyone is on board that the attention span shortening, dopamine extracting, cortisol inducing nature of doomscrolling is hurting society. My goal now is to explain both why
 this is different than stricly social media/networking, how the algorithms powering these platforms feed this cycle, and new forms of generative AI are going to accelerate this doom.
 
-### why short form content is a new problem 
+### why short form content is a new problem
 
-*The Social Dilemma* and precursors like [*Screenagers*](https://www.screenagersmovie.com/) were created when social media apps were still dominated by networks. Instagram, for example, 
+_The Social Dilemma_ and precursors like [_Screenagers_](https://www.screenagersmovie.com/) were created when social media apps were still dominated by networks. Instagram, for example,
 still prioritized content from people who you follow. The set of content shown to you was drawn from your following list. This is what led to the original problems of cyberbullying
 and people competing for likes/comments among their friends.
 
-Tiktok was revolutionary because it drew from the global set of content across all users. Putting this in an infintely scrollable interface created the real problems I talk about today. 
+Tiktok was revolutionary because it drew from the global set of content across all users. Putting this in an infintely scrollable interface created the real problems I talk about today.
 
 ### why The Algorithm is incentivized to harm (using ML first principles)
 
 When people talk about “the algorithm,” they often imagine a single model making deliberate choices about what you see. That framing is misleading.
-TikTok’s recommendation system is better understood as a pipeline: a set of retrieval models that select candidate videos, ranking models that score them, lightweight online 
-updates that track short-term user behavior, exploration mechanisms that prevent immediate collapse into repetition, and serving infrastructure that makes all of this happen in real time. 
+TikTok’s recommendation system is better understood as a pipeline: a set of retrieval models that select candidate videos, ranking models that score them, lightweight online
+updates that track short-term user behavior, exploration mechanisms that prevent immediate collapse into repetition, and serving infrastructure that makes all of this happen in real time.
 Despite this complexity, the system’s behavior is driven by a relatively simple objective. At ranking time, it is optimizing for expected engagement on the next video.
 
 Engagement itself is not directly measurable, so the system relies on proxies: watch time, rewatch probability, shares, comments, and skips as a negative signal.
-In practice, watch time dominates. It is dense, every view produces data—low-noise—skips and completions are unambiguous, and tightly coupled to revenue. Even if the 
-platform does not explicitly declare watch time as its primary objective, the system will converge on it because improvements in watch time reliably improve downstream metrics. 
+In practice, watch time dominates. It is dense, every view produces data—low-noise—skips and completions are unambiguous, and tightly coupled to revenue. Even if the
+platform does not explicitly declare watch time as its primary objective, the system will converge on it because improvements in watch time reliably improve downstream metrics.
 
-Once watch time becomes the dominant signal, the downstream incentives follow naturally. Content that produces stronger emotional responses tends to hold attention longer, 
+Once watch time becomes the dominant signal, the downstream incentives follow naturally. Content that produces stronger emotional responses tends to hold attention longer,
 so the system increasingly favors emotional intensity. Narrower personalization reduces skips, so user preferences harden rather than broaden. Short-term engagement is
-measurable and immediate, while long-term effects like regret, burnout, or reduced well-being are not, so optimization pressure consistently favors the short term. 
-No one needs to explicitly encode goals like “make people anxious” or “reduce attention spans.” Those outcomes emerge because they are stable solutions to the 
+measurable and immediate, while long-term effects like regret, burnout, or reduced well-being are not, so optimization pressure consistently favors the short term.
+No one needs to explicitly encode goals like “make people anxious” or “reduce attention spans.” Those outcomes emerge because they are stable solutions to the
 optimization problem the system is actually solving.
 
 Creators then adapt to these dynamics. Over time, they learn which hooks,
 pacing, visual styles, and emotional cues survive the ranking process. This isn’t manipulation so much as feedback.
-The platform rewards certain patterns, and creators—consciously or not—move toward them. The system and its participants 
+The platform rewards certain patterns, and creators—consciously or not—move toward them. The system and its participants
 co-evolve around the same engagement signals. It is an instance of Goodhart’s Law playing out at scale.
-
 
 ### why generative AI offers extra doomed scrolling
 
 Generative AI accelerates these dynamics by removing the remaining bottleneck of content production. When
 content creation was limited by human time and effort, there was at least a natural contraint. Content can now be
-produced continuously, tailored to increasingly narrow niches, tested at machine speed, and optimized against engagement 
+produced continuously, tailored to increasingly narrow niches, tested at machine speed, and optimized against engagement
 metrics.
 
 Sora and other video generation models already demonstrate that generating realistic video content is possible.
 
-One counter argument is that AI generated content inherently isn't as engaging as human generated. One special 
+One counter argument is that AI generated content inherently isn't as engaging as human generated. One special
 thing about Tiktok is it's centrality to real-world culture and memes. I think the videos saying "ai could never make
 this" over something absurd from real life is really funny and somewhat true.
 
 However, ai generated content already perfoms well on all platforms. The most [popular](https://futurism.com/artificial-intelligence/ai-twitch-streamer-neuro-sama)
 Twitch streamer isn't even human.
 
-Dismissing the even worse potential of slop dominated doom scrolling would be repeating the same mistakes as we are today 
-as social media transitions from networks to statistical, high-density recomendation systems. Tiktok itself should 
-serve as an example of what happens when large ML models with big datasets are trained on loss functions that 
+Dismissing the even worse potential of slop dominated doom scrolling would be repeating the same mistakes as we are today
+as social media transitions from networks to statistical, high-density recomendation systems. Tiktok itself should
+serve as an example of what happens when large ML models with big datasets are trained on loss functions that
 are only somewhat aligned with real world positive outcomes.
 
 ### what now
 
 Calling short form content the [Great Filter](https://en.wikipedia.org/wiki/Great_Filter) is fairly dramatic, but somewhat reasonable. The more slop content enters
 the recomendation distribution and people rely on dopamine from it, the more human attention is eaten away. If you take this in the limit, collective ability would
-be significantly diminished. Short form content
-is an exploit on the human brain. Some people know that and some don't. But most people aren't doing anything about it. If nothing 
+be significantly diminished. Short form content is an exploit on the human brain. Some people know that and some don't. But most people aren't doing anything about it. If nothing
 is ever done, then why wouldn't this problem have far worse societal affects than cigarettes?
 
-And? If The Social Dilemma showed me anything, it's that it's very easy to point at the problem and get people to understand, but 
-much different to offer a solution. 
+This essay aims to speak to the opinion that is loosely aware of the negative impacts, but would be quick to respond with "ok, but what can we realistically do"?
+
+If The Social Dilemma showed me anything, it's that it's very easy to point at the problem and get people to understand, but
+much different to offer a solution.
 
 The obvious solution is to say "let's quit!". This is my personal goal. But in practice is extremely difficult. I've tried using Apple's
-Screen Time and Opal. But both are annoying to use and unneffective. 
+Screen Time and Opal. But both are annoying to use and unneffective.
 
-While obvious, I think it's actually contratian to belive that simply removing all access to these apps is a feasible outcome for many. 
-That's why I think [Fade](https://fade.cool) will be helpful. If people had an easy, accessible (as opposed to Brick) way to 
+While obvious, I think it's actually contratian to belive that simply removing all access to these apps is a feasible outcome for many.
+That's why I think [Fade](https://fade.cool) will be helpful. If people had an easy, accessible (as opposed to Brick) way to
 flip a kill switch on the doomscrolling, then more would do it.
 
 Fade completely deletes these apps from your phone. You can't redownload them, access via spotlight, or anything. The only way to reaccess
-them is to delete Fade. Why wouldn't people do that? Because you would never want to reset the counter! This may sound trivial, but 
+them is to delete Fade. Why wouldn't people do that? Because you would never want to reset the counter! This may sound trivial, but
 it's been working for me. It's just enough accountability even in this primitive MVP.
 
 What I would like to exist is algorithm-less social media with no short form content. That's like the Chipotle of fast food. Maybe you could
-build something on top of these apps that scrapes content stricly from your friends/contacts/DMs and leaves the For You stuff away. This let's 
+build something on top of these apps that scrapes content stricly from your friends/contacts/DMs and leaves the For You stuff away. This let's
 everyone stay connected.
 
-So maybe give this small [open-source](https://github.com/joshmayerr/fade) thing I built a try. It's obviously free. There isn't 
+So maybe give this small [open-source](https://github.com/joshmayerr/fade) thing I built a try. It's obviously free. There isn't
 even accounts or any backend.
 
 link: [fade.cool](https://fade.cool)
