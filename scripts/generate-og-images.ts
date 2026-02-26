@@ -25,6 +25,7 @@ const POSTS = [
   "so",
   "tiktok",
   "video-games",
+  "know",
 ];
 
 async function waitForServer(url: string, maxRetries = 30): Promise<void> {
