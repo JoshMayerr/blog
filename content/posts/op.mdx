@@ -1,0 +1,33 @@
+---
+title: "OP: Trusted Identity for an agentic web"
+description: "written for op.inc/about with jonah gluck"
+date: "2026-04-06"
+---
+
+The internet is in the midst of a fundamental transformation. For decades, the web was built on a simple assumption: every meaningful action was performed by a human. Reading, writing, purchasing, and interacting with services were all human-driven. As a result, nearly all internet infrastructure, from authentication to bot detection, was designed around distinguishing humans from non-humans. Systems assume an actor is human until proven otherwise, and much of the web's defensive posture exists to enforce that assumption.
+
+This assumption is now breaking down because of two facts that are simultaneously becoming true. First, humans and automated actors are increasingly indistinguishable. Second, a growing class of these automated actors are not adversarial. Instead, they act directly on behalf of real users, completing economically meaningful tasks. Only 50% of web traffic today remains humans. Autonomous actors will soon outnumber humans on the internet by several orders of magnitude. They browse, purchase, read, write, and interact with services as extensions of human intent.
+
+The modern web today runs on an adversarial equilibrium. Services invest in increasingly sophisticated bot detection, while developers build increasingly sophisticated ways to bypass it. Even well-intentioned agents are forced to mimic human behavior by replaying browser sessions, storing cookies, and routing through proxies, just to function. This model does not scale to a world where agents are the primary actors.
+
+Despite this, the web is still trying to answer the question: "Is this a human?" The relevant distinction is no longer human versus bot, but authenticated versus unauthenticated. Opening sanctioned pathways for agents will unlock the real value of the agentic web.
+
+Existing identity providers, at first glance, would theoretically solve this problem. Tools like email accounts, OAuth providers, and social logins, already exist today. But the definition of identity has changed, and so has the criteria of the solution. A "Login with Google" button delegates identity from one Google account to another service. But what happens when one Google account orchestrates 100 agents? And what if one agent operates 100 Google accounts? Permission is not the same as identity, which is not the same as humanity. Identity on the internet is cheap. It's easy to create, easy to discard, and carry little persistent accountability. The existing notion of identity breaks when agents can create and operate accounts at scale. A new definition of identity on the internet is required.
+
+OP is the first functional identity provider under this new definition. OP provisions root identities, which are verifiably human and persistent. Each OP identity maps to a single human and serves as the root from which agent credentials are derived. Rather than creating disposable accounts, users establish a persistent root identity and delegate authority to agents operating on their behalf, for all services on the agentic web.
+
+OP anchors identity in existing systems that already carry real-world constraints, such as phone numbers and payment credentials. These systems are individually imperfect, but collectively difficult to scale, making identity meaningfully resistant to duplication.
+
+OP provides two things. First, OP Identities. OP Identities is a root identity provisioned per human, the anchor everything else derives from. Second, Web Agent Auth (WAA). WAA is an open protocol that extends existing bot standards to tie agents to an identity, not just a domain. Bot infrastructure today hopes to tell you what is acting. WAA tells you one person is initializing many actions. OP's goal is to be the best at provisioning distributed real agent identities.
+
+Agents are not identities themselves, they are extensions of a root identity.
+
+Under this new definition, services no longer have to rely on behavioral detection. They can enforce explicit access policies on known actors. They can define pricing, rate limits, permissions, and terms of service in a way that is transparent and enforceable. Banning an actor carries real cost, and good actors can reliably distinguish themselves from bad ones.
+
+This also changes how users interact with the internet. Agents no longer need to pretend to be humans. They can operate openly, with their own credentials, acting on behalf of users within defined constraints. Account creation becomes programmatic. Instead of manually navigating interfaces or building fragile automations, users can deploy agents that interact directly with services in a reliable and scalable way.
+
+The internet is already being rebuilt for agents. Developers are abstracting away user interfaces, building APIs over browser actions, and enabling software to interact directly with services. The UI is no longer the primary interface to the web, agents are.
+
+What is missing is the identity layer that makes this world stable. Without this, the web becomes increasingly adversarial, with services locking down access and agents finding new ways to bypass restrictions. With it, the web can evolve toward a model where automated actors are first-class participants, operating within clear and enforceable systems.
+
+OP is providing that foundation.
