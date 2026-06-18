@@ -1,0 +1,49 @@
+---
+title: Dreaming up an Agentic Internet Part 4
+description: The agentic internet is starting to look real.
+date: "2026-06-18"
+---
+
+It's now been well over two years since [part 1](https://www.joshmayer.net/posts/aiweb) of this series. At this point, I'm not sure how much dreaming is required. It seems like the "agentic internet" as was called back then is right around the corner.
+
+This acceleration is obviously driven by [OpenClaw](https://github.com/openclaw/openclaw) and [Hermes](https://hermes-agent.nousresearch.com/), the latest popular releases everyone is giving a try. OpenClaw innovated on the way you interface with an agent. Up until then, everyone was mainly focused on what OpenAI was building into ChatGPT (which is what I talked about last time). But OpenClaw was the first popular project that gave everyone an always-on personal agent running locally that had built-in connections to 3rd party services like email and WhatsApp.
+
+It blew up right as [Claude Code](https://github.com/anthropics/claude-code) got really good, so the two combined to jump way past ChatGPT. Initially, OpenClaw seemed to be a semi-slop open source project that was cool, but still in demo-land as most agent related projects were at the time. But I believe that this semi-slop was almost the charm that got so many interested, especially beyond the SF tech bubble. I knew that it had true escape velocity when my two favorite (very nontechnical) YouTubers both posted about using it to automate some of their daily lives.
+
+The reasoning behind what made OpenClaw and Hermes innovative is well documented. But the TLDR is that 1) the entire config of the agent ran locally, 2) the agent was always-on, 3) it had easy documented ways to connect it to most apps and chat with it through real channels like Discord, and 4) because coding models also got really good at that time the agents could improve their own configs. None of this was really true for ChatGPT, Cursor, DSPy, or any agent framework at the time.
+
+So now there's a real user base of not just innovators, but early-adopters of these types of agents. This is exactly the local personal agent I described in [part 1](https://www.joshmayer.net/posts/aiweb). One obvious reason this brings the web a lot closer to the agentic vision is that it simply gives a real mental picture of what an agent is. If you asked a VC what an agent is a year ago, you would probably get a different answer every time.
+
+The more interesting reason is that these types of agents are astroturfing the human-facing web, into more efficient pathways to use themselves.
+
+[ChatGPT Apps](https://developers.openai.com/apps-sdk) were interesting because it gave a target for app developers to integrate into the chatgpt.com experience. But this came with a ton of strict constraints and who gets to make them.
+
+Instead in OpenClaw land, there is absolutely no regulation or permissioning. This is obviously less secure for everyone involved, but is what's powering this rapid adoption. Everyone using Hermes can use Hermes to build a new custom plugin for their Whoop device that uses heart rate to control the temperature of their 8Sleep. None of these integrations are official. No one needed to approve the plugins to be on some app store. Hermes can just build them as needed. Combined with YOLO mode, users can build whatever they want into their agent workflows. It feels more like a real personal agent you own.
+
+The ratio of people who tried these agents to those who actually built very useful workflows is still probably really small. The next obvious step is that the consumer facing agents will start to converge with the infinite functionality of Hermes. Kind of bringing things back to where we were in the fall.
+
+[Poke.com](https://poke.com/), the new Siri, [HeyClicky](https://heyclicky.com/) and ChatGPT are four very different products but all four are still hoping to be the place consumers interact with agents. For businesspeople, there's a similarly competitive scene with Codex Desktop and Claude Cowork.
+
+Whether or not the products win over the open source wild west of Hermes/OpenClaw is not clear. The easiest guess is just regular consumers use products, power users use their own setup. But in any case, the agents are here! Everyone can roughly see exactly what an agent looks like, and what it means to have one assist you or maybe take your job.
+
+Now that agents exist, the supporting infrastructure is following really closely behind. Identity, authorization, payments, and memory are all categories I've already talked about briefly, but are now far more solidified with recent releases.
+
+### Identity
+
+Identity is a problem I've spent lots of time researching. Vitalik Buterin actually named this one of the most important problems like 10 years ago. And as agents mimic human behavior exactly on the web, it is important to know what actors are human and not. I am very interested in [World](https://world.org/world-id) and why people feel so strongly it's needed. I think in the future there will be three key sources of "personhood" on the internet. The first is phone numbers because of how strong a monopoly big carriers have, and how well distributed it is already. Antifraud systems for phone numbers are future proof to the cat-and-mouse game because of the high cost to operating SIM farms. The second is digital ID systems like the [EUDI Wallet](https://ec.europa.eu/digital-building-blocks/sites/spaces/EUDIGITALIDENTITYWALLET/pages/694487738/EU%2BDigital%2BIdentity%2BWallet%2BHome) in Europe and [TSA Digital ID](https://www.tsa.gov/digital-id) in the US. The third is World, which aims to be another way to prove without requiring some sort of KYC at some point using government documentation like the other two options. Using these three primitives, certain actions on the web can ask, "are you human?" or even "are you an agent acting on behalf of a real human?" effectively.
+
+### Authorization
+
+Once agents can make accounts and actually do things, it's important to give them only the permissions to do things they need to be doing at specific times. While most people today give their agents access to their entire computer and every piece of data they can, there will need to be more effective guardrails, especially commercially. There are plenty of startups working on this, I don't feel like it's a difficult technical problem as much as it's a cultural thing. People just don't really want to do it, yet.
+
+### Payments
+
+Not only should agents be able to do things, but they should be able to pay for things. Stripe has made some huge releases in this space with [MPP](https://stripe.com/blog/machine-payments-protocol), [Stripe Projects](https://stripe.com/blog/stripe-projects-adds-new-agents-providers-developer-controls), and [Link](https://link.com/). Consumers KYC once, have some inbox, and then generate wallets with approval for their agents to either pay with virtual cards or with stablecoins entirely programmatically. I think people often just think that this is about agents buying me groceries or something simple like that, but agents being able to pay for things with no human in the loop has more interesting consequences. I believe that a lot of the web is closing. To do something, you will either need to pay, or have proof of personhood. A lot of things will require paying, which people call pay-per-use. How to price this? I don't think people know mainly because the market for this is really small. But the main idea is that all the APIs out there will require payments, and it is unlikely that Visa's settlement process can sustain that.
+
+### Memory
+
+Memory started off with just RAG, and has had a long journey to what's popular now in OpenClaw with filesystems, markdown, and code being the only really important things (+ web search). At face value, current solutions work ok, but don't really solve the problem. On one hand, the technology of combining different information retrieval methods is the bottleneck. I think newer projects like [Mesa](https://www.mesa.dev/) continue making progress at the right level of abstraction. On the other hand, a major bottleneck is figuring out where memory lives for agents. Because for memory to be useful, it also needs to be holistic context for everything the agent does across all the apps it has access to. TBL's [Solid protocol](https://solidproject.org/) could actually be an interesting component to these filesystems as well. There's still a lot of room to grow since memory is just one component in trying to give an agent access to any context it needs, especially across a whole organization.
+
+With all of these roughly in place it's easy to see how you can build an OpenClaw agent into a real digital citizen with its own accounts, money, and access to any service it wants.
+
+I think this might be my last one because most of what I originally expected two years ago seems to be right around the corner. And at that point, I'm not sure how much insight I can really add. The agentic internet has arrived! My work (in this very narrow sense) is almost over!
