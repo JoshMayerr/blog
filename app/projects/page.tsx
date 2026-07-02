@@ -14,7 +14,7 @@ const projectsByYear = [
         title: "OP",
         href: "https://op.inc",
         description:
-          "A Python SDK and CLI for OP auth, SMS, phone numbers, webhooks, and setup.",
+          "Trusted identity for agents, starting with real phone numbers exposed through APIs for account creation, verification, messaging, and accountable delegated work.",
       },
       {
         title: "Fade for Mac",
