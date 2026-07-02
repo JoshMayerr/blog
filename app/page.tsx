@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Metadata } from "next";
 import { getBaseUrl } from "@/lib/utils";
 
@@ -58,8 +57,7 @@ export default function Home() {
             called <Link href={"https://tollbit.com"}>TollBit</Link>.
           </li>
           <li>
-            Researching delegated authorization for agents with Professor Sharon
-            Goldberg at BU.
+            A Computer Science textbook to teach agents how to teach humans.
           </li>
           <li>
             Some unpolished <Link href={"/posts"}>writing</Link>
@@ -68,6 +66,10 @@ export default function Home() {
 
         <h3>Past Work</h3>
         <ul>
+          <li>
+            Researched delegated authorization for agents with Professor Sharon
+            Goldberg at BU.
+          </li>
           <li>
             Built <Link href={"https://sunflowers.dev"}>sunflowers.dev</Link>.
             An internship application spray and pray bot for over 8,000 students
@@ -97,10 +99,24 @@ export default function Home() {
             gamers together in the same match.{" "}
             <span className="text-primary">(Oldie but goodie)</span>
           </li>
+          <li>
+            <Link href={"/projects"}>All projects</Link>
+          </li>
         </ul>
 
         <h3>Press</h3>
         <ul>
+          <li>
+            <Link
+              href={
+                "https://open.spotify.com/episode/5UcEBug4UUyE5gv2K0RSIb?si=vWuVIvXsQ8-_mtITXv0KpQ"
+              }
+            >
+              Is Chalk.ai the &lsquo;Next Databricks&rsquo;? + Tollbit&rsquo;s
+              Bot Paywall for AI Agents | E2167
+            </Link>
+            . A This Week in Startups episode featuring TollBit.
+          </li>
           <li>
             <Link
               href={
@@ -139,11 +155,6 @@ export default function Home() {
 
         <h3>Other</h3>
         <ul>
-          <li id="Beme">
-            Tried to build Beme: an updated phone to phone contact sharing
-            service like Bump. It was built with a mix of BLE and location
-            services using Flutter.
-          </li>
           <li>
             I used to really love graphic design, so a lot of my design work is
             on <Link href={"https://www.behance.net/jooshmayer"}>Behance.</Link>

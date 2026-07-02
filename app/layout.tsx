@@ -31,6 +31,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <nav className="text-md space-x-6 underline">
                 <Link href="/">Home</Link>
                 <Link href="/posts">Notes</Link>
+                <Link href="/projects">Projects</Link>
                 {/* <Link href="/about">About</Link> */}
               </nav>
               <ModeToggle />
