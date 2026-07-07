@@ -3,4 +3,4 @@ User-agent: *
 Disallow:
 
 # Sitemap location
-Sitemap: https://www.joshmayer.net/sitemap.xml
+Sitemap: https://joshmayer.net/sitemap.xml
