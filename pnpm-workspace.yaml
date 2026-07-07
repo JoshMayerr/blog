@@ -1,3 +1,6 @@
+packages:
+  - "."
+
 allowBuilds:
   contentlayer2: true
   esbuild: true
