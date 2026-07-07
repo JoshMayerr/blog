@@ -1,32 +1,27 @@
-import { chromium } from "playwright";
+import { chromium, type Page } from "playwright";
 import { spawn, ChildProcess } from "child_process";
-import { mkdir } from "fs/promises";
-import { join } from "path";
+import { mkdir, readdir } from "fs/promises";
+import { basename, extname, join } from "path";
 
 const BASE_URL = "http://localhost:3000";
+const POSTS_DIR = join(process.cwd(), "content", "posts");
 const OUTPUT_DIR = join(process.cwd(), "public", "og-images");
 const VIEWPORT = { width: 1200, height: 630 };
+const NEXT_BIN = join(
+  process.cwd(),
+  "node_modules",
+  ".bin",
+  process.platform === "win32" ? "next.cmd" : "next",
+);
 
-// List of posts to screenshot - matches content/posts/*.mdx
-const POSTS = [
-  "aiweb2",
-  "aiweb",
-  "aiweb3",
-  "bix",
-  "browsers",
-  "cooked",
-  "internet-change",
-  "la-bullet-points",
-  "nullspace",
-  "open",
-  "preface",
-  "propaganda",
-  "readings",
-  "so",
-  "tiktok",
-  "video-games",
-  "know",
-];
+async function getPostSlugs(): Promise<string[]> {
+  const entries = await readdir(POSTS_DIR, { withFileTypes: true });
+
+  return entries
+    .filter((entry) => entry.isFile() && extname(entry.name) === ".mdx")
+    .map((entry) => basename(entry.name, ".mdx"))
+    .sort((a, b) => a.localeCompare(b));
+}
 
 async function waitForServer(url: string, maxRetries = 30): Promise<void> {
   for (let i = 0; i < maxRetries; i++) {
@@ -47,23 +42,30 @@ async function waitForServer(url: string, maxRetries = 30): Promise<void> {
 
 async function startServer(): Promise<ChildProcess> {
   console.log("Starting Next.js server...");
-  const server = spawn("pnpm", ["start"], {
+  const server = spawn(NEXT_BIN, ["start"], {
     stdio: ["ignore", "pipe", "pipe"],
     cwd: process.cwd(),
   });
 
   server.stdout?.on("data", (data) => {
-    const output = data.toString();
-    if (output.includes("Ready")) {
-      console.log("Next.js server started");
-    }
+    process.stdout.write(data);
   });
 
   server.stderr?.on("data", (data) => {
-    console.error(`Server stderr: ${data}`);
+    process.stderr.write(data);
   });
 
   return server;
+}
+
+async function gotoOrThrow(page: Page, url: string): Promise<void> {
+  const response = await page.goto(url, { waitUntil: "networkidle" });
+
+  if (!response?.ok()) {
+    throw new Error(
+      `Failed to load ${url}: ${response?.status() ?? "no response"}`,
+    );
+  }
 }
 
 async function generateOgImages(): Promise<void> {
@@ -72,6 +74,8 @@ async function generateOgImages(): Promise<void> {
   try {
     // Ensure output directory exists
     await mkdir(OUTPUT_DIR, { recursive: true });
+    const postSlugs = await getPostSlugs();
+    console.log(`Found ${postSlugs.length} posts to capture.`);
 
     // Start the server
     server = await startServer();
@@ -100,7 +104,7 @@ async function generateOgImages(): Promise<void> {
 
     // Screenshot home page
     console.log("Capturing home page...");
-    await page.goto(BASE_URL, { waitUntil: "networkidle" });
+    await gotoOrThrow(page, BASE_URL);
     await page.addStyleTag({ content: hideElementsCSS });
     await page.screenshot({
       path: join(OUTPUT_DIR, "home.png"),
@@ -109,12 +113,14 @@ async function generateOgImages(): Promise<void> {
     console.log("  Saved: home.png");
 
     // Screenshot each post
-    for (const slug of POSTS) {
+    const failedSlugs: string[] = [];
+
+    for (const slug of postSlugs) {
       const url = `${BASE_URL}/posts/${slug}`;
       console.log(`Capturing: /posts/${slug}...`);
 
       try {
-        await page.goto(url, { waitUntil: "networkidle" });
+        await gotoOrThrow(page, url);
         await page.addStyleTag({ content: hideElementsCSS });
         await page.screenshot({
           path: join(OUTPUT_DIR, `posts-${slug}.png`),
@@ -122,11 +128,17 @@ async function generateOgImages(): Promise<void> {
         });
         console.log(`  Saved: posts-${slug}.png`);
       } catch (error) {
+        failedSlugs.push(slug);
         console.error(`  Error capturing ${slug}:`, error);
       }
     }
 
     await browser.close();
+
+    if (failedSlugs.length > 0) {
+      throw new Error(`Failed to capture posts: ${failedSlugs.join(", ")}`);
+    }
+
     console.log("\nOG image generation complete!");
     console.log(`Images saved to: ${OUTPUT_DIR}`);
   } finally {
