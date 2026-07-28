@@ -1,0 +1,107 @@
+---
+title: "Phone numbers are the identity layer of the internet"
+description: "Why phone numbers are the best available root identity provider for agents."
+date: "2026-07-27"
+---
+
+Despite the many different projects—[Auth.md](https://auth-md.com/), [AXIS Prime](https://www.axisprime.ai/), and [IDA](https://www.myida.ai/), among others—claiming to solve agentic identity, I've learned through exploring [OP](/posts/op) that phone numbers are the most valuable root identity provider on the internet. Therefore, phone numbers can be used as a core building block to build identity for agents on top of. My goal now is to explain why and how, building on the paragraph from my [last post](/posts/aiweb4).
+
+## Why phone numbers over others
+
+To understand why phone numbers, it's useful to understand the landscape for where trusted identity comes from today without agents. Here's a useful picture:
+
+> Having a passport or SSN is a proxy for being a unique human recognized by a specific country.
+>
+> Having a long-lived mobile phone number is a proxy for having an account with a regulated carrier, and sometimes for having passed an identity or credit check.
+>
+> Having a Google account is a proxy for having passed Google's anti-abuse systems, which sometimes include [phone verification](https://support.google.com/accounts/answer/114129).
+>
+> Having an X account is a proxy for having passed another platform's anti-abuse systems, often starting with a real email or Google account.
+>
+> Having a crypto wallet, by design, is a proxy for nothing other than controlling a private key.
+>
+> Having a [World ID](https://world.org/world-id) is a proxy for having a unique iris scan, which is a proxy for being a unique human, but not one in any specific country.
+
+These aren't perfect implications. One person can have multiple phone numbers or Google accounts, and phone numbers can be recycled, stolen, or farmed. But each layer adds cost and inherits some trust from the layer below it.
+
+Identity on the internet has been a problem long before agents. The real name for it is [Proof of Personhood](https://vitalik.eth.limo/general/2023/07/24/biometric.html), which asks the question: how do I know this user, account, or wallet is operated by a real and unique human? Vitalik Buterin wrote his detailed overview of the problem in 2023, although the related [Sybil problem](https://www.microsoft.com/en-us/research/publication/the-sybil-attack/) was named in 2002. The known tradeoff for different types of identity balances three properties: decentralized, privacy-preserving, and Sybil-resistant.
+
+Briefly, this means that it is very difficult to maximize all three properties at once. This is more of a practical tradeoff than a proven trilemma, but most systems today are private and roughly Sybil-resistant. The most popular forms of identity on the internet historically have been [OpenID Connect](https://openid.net/developers/how-connect-works/) providers like Google, GitHub, etc. Why do applications trust these platforms? Because as an application builder, I can trust that Google invests in anti-fraud and bot blocking, and does it better than I could do myself. Therefore, Google provides some Sybil resistance because one human cannot cheaply create unlimited durable accounts. It's somewhat privacy-preserving because an end user doesn't have to give every application a passport or even their real name; the application only receives the claims Google shares. This is obviously not decentralized because Google owns the identity. The same is true for all the other OIDC providers.
+
+One of the reasons Google can be confident in its Sybil resistance is that it sometimes requires users to verify with a real phone number. Google does not require a phone number for every account, but when it does, it [limits the number of accounts that one number can verify](https://support.google.com/accounts/answer/114129). VoIP and disposable numbers can also be identified or treated as higher-risk signals, and other malicious attempts can be blocked.
+
+Therefore, fraud prevention plus phone numbers are a large part of the practical Proof of Personhood that powers the internet right now.
+
+## Why are mobile numbers scarce?
+
+Going down another layer, why are phone numbers Sybil-resistant? The answer comes from how phone numbers are provisioned. There are a finite number of unique numbers available in the U.S. because numbers are managed under the FCC's [North American Numbering Plan](https://docs.fcc.gov/public/attachments/DOC-381124A1.pdf). The FCC sets the rules, and numbering administrators allocate blocks of numbers to eligible providers.
+
+There are also only a very small number of mobile carriers that own the physical networks underneath most U.S. mobile numbers. Verizon, T-Mobile, and AT&T form an oligopoly: according to the FCC, they accounted for [98.8% of connections among the four facilities-based providers in 2023](https://docs.fcc.gov/public/attachments/FCC-24-136A1.pdf). Clearly, this is not decentralized.
+
+The acronym I was looking for here was probably **MNO**, or mobile network operator. There are two other useful acronyms: **MSISDN** is the phone number associated with a mobile subscription, and **IMSI** identifies the subscriber on the SIM. The distinction matters because a phone number alone is easy to type or spoof. The valuable signal is that an MNO knows the relationship between the number, the subscription, the SIM, and the device currently connected to its network.
+
+Going down another layer, how do you actually get access to one of the numbers owned by them?
+
+For many postpaid phone plans, a customer provides legal identity and passes a credit check. But this is not universal KYC: the U.S. does not require every prepaid SIM buyer to provide a government ID, and family plans and business accounts also break the one-person-one-line relationship. So a government ID is not literally the root of every phone number.
+
+Still, government IDs are the strongest root identity in this stack. They are also clearly not decentralized and, when presented directly, not very privacy-preserving. But passports are among the most Sybil-resistant systems that exist, if you trust the issuing government.
+
+So, each layer down from the government places trust in new platforms, adds some accidental privacy, and removes not too much Sybil resistance.
+
+## Digital government ID is coming
+
+In the future, I believe two things will happen. Digital government IDs will be increasingly popular. The European Union requires member states to provide an [EU Digital Identity Wallet](https://digital-strategy.ec.europa.eu/en/policies/eudi-regulation) by the end of 2026, and the [TSA already accepts participating digital IDs](https://www.tsa.gov/digital-id) at more than 250 checkpoints in the U.S. This is how systems like phone numbers can continue to operate despite highly capable fraud attempts using AI. Therefore, phone numbers may remain a valid Proof of Personhood in the same way they exist today.
+
+The unfortunate outcome of this prediction is that identity on the internet becomes less and less privacy-preserving. More actions taken online will be tied to an upstream real identity. This is certainly contradictory to the founding principles of the web, which Tim Berners-Lee described as ["universal, royalty-free, open and decentralised"](https://www.w3.org/webat25/news/tbl-web25-welcome): "This is for everyone."
+
+## The World ID alternative
+
+One potential solution to this is [World ID](https://world.org/world-id). World ID operates at the very top level, looking to replace the need for such a strong reliance on government IDs. Trusting World ID means trusting its ability to identify unique humans using the Orb.
+
+Those who started it were definitely aware of the tradeoff because the goal is to be decentralized, privacy-preserving, and Sybil-resistant. It aims to be decentralized through an open protocol and a network of independently operated Orbs; privacy-preserving through zero-knowledge proofs and application-specific nullifiers that avoid exposing one stable ID everywhere; and Sybil-resistant through specialized optics and machine learning that create and compare iris codes.
+
+World says Orb images are sent to the user's device and deleted from the Orb, while iris codes are split into fragments for [anonymized multi-party computation](https://world.org/faqs). Its [Semaphore-based design](https://world.org/blog/worldcoin/worldcoin-privacy-faqs) lets users prove they are verified without revealing a name or presenting the same identifier to each application.
+
+Whether or not World ID is truly decentralized is unclear. Tools for Humanity still designs and manufactures the Orb, and World Foundation still has a central role. World's own whitepaper describes hardware production and operation as something intended to [decentralize over time](https://whitepaper.world.org/Whitepaper.pdf). But it's certainly the option most directly attempting to solve all three parts of the tradeoff.
+
+I originally wanted to work on OP because I believed there was a middle ground between World ID and phone numbers. World ID has an upfront cost to the user in scanning their eyeballs, and I thought phone numbers would be insecure. I now think both of those are actually wrong, or at least overstated.
+
+Phone numbers are the best solution for now. They are not decentralized, but I'm not sure if average users really care since Google already owns most identity today. However, the future-facing solution is certainly World ID.
+
+## Turning a phone number into agentic identity
+
+The next detail is how phone numbers are effectively adapted into a new agentic identity primitive. As I noted, the strongest trust starts with government IDs. Today, services like [Persona](https://docs.withpersona.com/docs/verifications-government-id) are used to verify photos of passports and other IDs. In the near future, this interaction will have to shift toward government-provided digital IDs, as photos of anything are not AI-safe. Signed digital credentials are much harder to fake than pixels because a verifier can check the issuer's cryptographic signature. This means that mobile carriers can remain relatively safe while continuing to provision phone numbers.
+
+Application developers could continue using Google, but it has no obvious consumer product for portable, agentic root identity, and it's unclear if it will anytime soon. Therefore, more applications may need to go back a layer directly to phone numbers plus fraud prevention. Luckily, there's a cool new family of APIs from carriers called [GSMA Open Gateway](https://www.gsma.com/solutions-and-impact/gsma-open-gateway/gsma-open-gateway-frequently-asked-questions/), standardized through the Linux Foundation's [CAMARA](https://camaraproject.org/) project.
+
+The two most useful APIs for identity are **Number Verification** and **SIM Swap**. Number Verification confirms that the phone number supplied to an application matches the SIM on the device's current mobile-data connection, without requiring an SMS code. SIM Swap reports whether, or when, a number was recently associated with a new SIM. Neither proves personhood by itself, but both expose carrier-level signals that are much harder to fake than an SMS OTP.
+
+Using these APIs and existing identity platforms like [Clerk](https://clerk.com/docs/guides/configure/auth-strategies/sign-up-sign-in-options), I think this solves the near future. [Prelude](https://prelude.so/) is a startup I wish I had started if I were about eight months earlier. It combines phone verification with fraud, device, network, and behavioral signals, and now offers [silent network authentication](https://prelude.so/blog/sna).
+
+The open question is still how to use these signals on the open web. Will you have to enter your phone number every time you use Zillow or Resy? The better version is probably that a user verifies once with an identity provider, then delegates a narrow, revocable credential to an agent. Zillow or Resy receives proof that the agent is backed by a verified human root without necessarily receiving the raw phone number or a global identifier.
+
+## What would Ticketmaster choose?
+
+So, between these two options, which is Ticketmaster more likely to adopt?
+
+Phone numbers are much more likely in the near term. Almost every customer already has one, the verification can happen inside an existing signup or checkout flow, and carrier signals can be combined with payment, device, and behavioral history. The downside is that real people can have multiple numbers, families share plans, numbers are recycled, and professional scalpers can still acquire lines at scale.
+
+World ID offers a cleaner rule: one verified human gets one allocation. It may also reveal less personal information to Ticketmaster. But today, requiring every buyer to find an Orb would create enormous friction and exclude too many customers. Ticketmaster would also be depending on a young network with unresolved questions about coverage, governance, recovery, and regulation.
+
+The most likely outcome is a layered system: phone and carrier signals for everyone, with World ID potentially offered as an optional higher-assurance proof for certain presales. If World ID reaches enough coverage, the optional proof could become the default.
+
+## Side note on WLD
+
+If WLD is ever to be valuable, these seven things need to be true:
+
+1. World ID becomes the dominant proof-of-human standard.
+2. Major applications pay recurring fees per verified active user.
+3. All fees are obligatorily settled in WLD.
+4. A meaningful percentage of protocol fees is automatically burned or locked.
+5. Applications and payment providers maintain WLD inventory.
+6. Governance or credential issuance requires staking WLD.
+7. Fee-related demand grows faster than unlock-related selling.
+
+The first is plausible, but I would no longer call it very likely. World has published a planned fee architecture in which applications pay credential and protocol fees in [WLD](https://whitepaper.world.org/designing-for-scale/2025-04-30). However, Tools for Humanity and World Foundation have continued to delay clarity around the real pilot timing, fee structure, and implementation—especially what is ultimately done with the fees and revenue.
+
+World ID being useful and WLD being valuable are two separate theses.
