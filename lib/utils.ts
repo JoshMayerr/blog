@@ -4,6 +4,7 @@ export function formatDate(input: string | number | Date): string {
     month: "long",
     day: "numeric",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 

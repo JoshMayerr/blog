@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { allPosts } from "contentlayer2/generated";
 
 import { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
 import { Mdx } from "@/components/mdx-components";
 import { formatDate, getBaseUrl } from "@/lib/utils";
 
@@ -16,7 +17,7 @@ async function getPostFromParams(slug: string[]) {
   const post = allPosts.find((post) => post.slugAsParams === slugPath);
 
   if (!post) {
-    null;
+    return null;
   }
 
   return post;
@@ -77,8 +78,25 @@ export default async function PostPage({ params }: PostProps) {
     notFound();
   }
 
+  const baseUrl = getBaseUrl();
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    image: `${baseUrl}/og-images/posts-${post.slugAsParams}.png`,
+    mainEntityOfPage: new URL(post.slug, baseUrl).toString(),
+    author: {
+      "@type": "Person",
+      name: "Josh Mayer",
+      url: baseUrl,
+    },
+  };
+
   return (
     <article className="mt-6 mb-16">
+      <JsonLd data={jsonLd} />
       <div className="flex flex-col mb-6">
         <h1 className="font-bold text-2xl mb-3 underline">{post.title}</h1>
         {post.description && (

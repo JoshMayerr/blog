@@ -1,5 +1,6 @@
 import { Mdx } from "@/components/mdx-components";
-import { formatDate } from "@/lib/utils";
+import { JsonLd } from "@/components/json-ld";
+import { formatDate, getBaseUrl } from "@/lib/utils";
 import { allLearnings } from "contentlayer2/generated";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -20,7 +21,7 @@ export async function generateMetadata({
   const essay = getEssay((await params).slug);
   if (!essay) return {};
 
-  const socialImage = "/og-images/home.png";
+  const socialImage = `/api/og/learning/${essay.slugAsParams}`;
 
   return {
     title: essay.title,
@@ -32,7 +33,14 @@ export async function generateMetadata({
       url: essay.slug,
       type: "article",
       publishedTime: essay.date,
-      images: [socialImage],
+      images: [
+        {
+          url: socialImage,
+          width: 1200,
+          height: 630,
+          alt: essay.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -55,8 +63,25 @@ export default async function LearningEssayPage({
   const essay = getEssay((await params).slug);
   if (!essay) notFound();
 
+  const baseUrl = getBaseUrl();
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: essay.title,
+    description: essay.description,
+    datePublished: essay.date,
+    image: `${baseUrl}/api/og/learning/${essay.slugAsParams}`,
+    mainEntityOfPage: new URL(essay.slug, baseUrl).toString(),
+    author: {
+      "@type": "Person",
+      name: "Josh Mayer",
+      url: baseUrl,
+    },
+  };
+
   return (
     <article className="mt-6 mb-16">
+      <JsonLd data={jsonLd} />
       <Link
         href="/learning"
         className="text-sm underline text-slate-600 dark:text-slate-300"

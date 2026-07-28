@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { allPages } from "contentlayer2/generated";
 
 import { Mdx } from "@/components/mdx-components";
+import { getBaseUrl } from "@/lib/utils";
 
 interface PageProps {
   params: Promise<{
@@ -15,7 +16,7 @@ async function getPageFromParams(slug: string[]) {
   const page = allPages.find((page) => page.slugAsParams === slugPath);
 
   if (!page) {
-    null;
+    return null;
   }
 
   return page;
@@ -31,6 +32,8 @@ export async function generateMetadata({
     return {};
   }
 
+  const socialImage = `${getBaseUrl()}/og-images/home.png`;
+
   return {
     title: page.title,
     description: page.description,
@@ -39,6 +42,20 @@ export async function generateMetadata({
       title: page.title,
       description: page.description,
       url: `/${page.slugAsParams}`,
+      images: [
+        {
+          url: socialImage,
+          width: 1200,
+          height: 630,
+          alt: page.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.title,
+      description: page.description,
+      images: [socialImage],
     },
   };
 }

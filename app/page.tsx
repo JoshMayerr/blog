@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
 import { getBaseUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Josh Mayer",
+  title: { absolute: "Josh Mayer" },
   description: "Personal blog and portfolio of Josh Mayer",
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Josh Mayer",
     description: "Personal blog and portfolio of Josh Mayer",
+    url: "/",
     images: [
       {
         url: `${getBaseUrl()}/og-images/home.png`,
@@ -26,8 +29,35 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const baseUrl = getBaseUrl();
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Josh Mayer",
+      url: baseUrl,
+      sameAs: [
+        "https://x.com/jooshmayer",
+        "https://github.com/joshmayerr",
+        "https://linkedin.com/in/jooshmayer",
+        "https://www.youtube.com/@jooshmayer",
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Josh Mayer",
+      url: baseUrl,
+      author: {
+        "@type": "Person",
+        name: "Josh Mayer",
+      },
+    },
+  ];
+
   return (
     <div className="max-w-3xl prose dark:prose-invert mt-6">
+      <JsonLd data={jsonLd} />
       <div className="">
         <div className="relative inline-block mb-6">
           {/* <Image

@@ -1,14 +1,32 @@
 import { Metadata } from "next";
 import { ProjectItem } from "@/components/project-item";
+import { getBaseUrl } from "@/lib/utils";
+
+const description = "A running log of things I've built.";
+const socialImage = `${getBaseUrl()}/og-images/home.png`;
 
 export const metadata: Metadata = {
   title: "All Projects",
-  description: "A running log of things I've built.",
+  description,
   alternates: { canonical: "/projects" },
   openGraph: {
     title: "All Projects",
-    description: "A running log of things I've built.",
+    description,
     url: "/projects",
+    images: [
+      {
+        url: socialImage,
+        width: 1200,
+        height: 630,
+        alt: "Projects by Josh Mayer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "All Projects",
+    description,
+    images: [socialImage],
   },
 };
 
@@ -197,6 +215,7 @@ const projectsByYear = [
 export default function ProjectsPage() {
   return (
     <article className="py-6 prose dark:prose-invert">
+      <h1 className="sr-only">All Projects</h1>
       <div className="not-prose grid gap-10">
         {projectsByYear.map(({ year, projects }) => (
           <section key={year} className="grid gap-4">

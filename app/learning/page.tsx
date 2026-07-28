@@ -1,16 +1,33 @@
 import { allLearnings } from "contentlayer2/generated";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getBaseUrl } from "@/lib/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const description = "Notes and essays organized by what Josh Mayer is learning.";
+const socialImage = `${getBaseUrl()}/og-images/home.png`;
+
 export const metadata: Metadata = {
   title: "Learning",
-  description: "Notes and essays organized by what Josh Mayer is learning.",
+  description,
   alternates: { canonical: "/learning" },
   openGraph: {
     title: "Learning",
-    description: "Notes and essays organized by what Josh Mayer is learning.",
+    description,
     url: "/learning",
+    images: [
+      {
+        url: socialImage,
+        width: 1200,
+        height: 630,
+        alt: "Learning notes from Josh Mayer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Learning",
+    description,
+    images: [socialImage],
   },
 };
 
