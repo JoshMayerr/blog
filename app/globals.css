@@ -16,3 +16,19 @@ p,
 li {
   letter-spacing: 0;
 }
+
+.prose pre {
+  overflow-x: auto;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.prose pre code {
+  font-size: 0.875rem;
+  letter-spacing: 0;
+}
+
+.prose figure img {
+  margin-bottom: 0.5rem;
+}

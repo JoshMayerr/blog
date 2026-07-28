@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { allPages, allPosts } from "contentlayer2/generated";
+import { allLearnings, allPages, allPosts } from "contentlayer2/generated";
 
 import { getBaseUrl } from "@/lib/utils";
 
@@ -26,6 +26,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: absoluteUrl("/learning"),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
 
   const pageRoutes: MetadataRoute.Sitemap = allPages.map((page) => ({
@@ -41,5 +46,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...pageRoutes, ...postRoutes];
+  const learningRoutes: MetadataRoute.Sitemap = allLearnings.map((essay) => ({
+    url: absoluteUrl(essay.slug),
+    lastModified: new Date(essay.date),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...pageRoutes, ...postRoutes, ...learningRoutes];
 }

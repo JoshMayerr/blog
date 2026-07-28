@@ -1,0 +1,119 @@
+---
+title: "Who Owns Residential Proxies?"
+description: "A mental model of the residential-proxy supply chain and the murky question of consent at its edge."
+date: "2026-07-21"
+section: "Internet Infrastructure"
+---
+
+Residential proxies are an important tool for web scraping. They let a customer send traffic through an IP address assigned to a household instead of through a cloud provider or datacenter. This matters because the source IP and its network owner are among the signals websites use to distinguish humans from bot traffic.
+
+Access is really, really easy to buy. Bright Data, Oxylabs, NodeMaven, NetNut, and many smaller storefronts sell residential traffic. But from the outside, it is initially unclear what their supply chain looks like.
+
+## TL;DR
+
+- Proxies need devices in someone's home to run on.
+- Smart TVs are popular targets because they are always on and connected.
+- A device can join a proxy network through malware and exploitation, trojan-horse apps, or an installation that claims the owner's consent.
+- The lines between those categories are murky and may sometimes be nonexistent.
+
+## How a residential proxy request works
+
+At the simplest level, four parties are involved:
+
+1. **Customer:** the developer or scraper that wants, for example, an exit in New York.
+2. **Provider:** the company selling access, such as Bright Data, Oxylabs, or NetNut.
+3. **Exit device:** a PC, phone, TV box, router, or other device on a consumer network running proxy software.
+4. **Target:** the website or service the customer wants to reach.
+
+In practice, suppliers, wholesalers, and resellers add several more layers. The brand taking the customer's payment does not necessarily own the software running on the exit device or even operate the underlying pool. This is why I was initially curious about who actually owns access to each device. Is it one massive botnet? Or one company with a monopoly?
+
+<Figure
+  src="/images/learning/residential-proxies/request-flow.png"
+  alt="Diagram showing residential proxy access methods feeding into household edge devices, orchestration servers, proxy platforms, and an end user"
+  caption="My mental model of how a residential proxy request travels from a customer through an edge device to the internet."
+  width={3000}
+  height={1340}
+/>
+
+From the customer's perspective, the first interaction is with the provider's gateway:
+
+```bash
+curl --proxy \
+  http://customer-zone-country-us-session-123:password@gateway.example:8000 \
+  https://target.example/resource
+```
+
+The customer is connecting to the provider's gateway, not directly to a random laptop or smart TV in someone's home. The gateway authenticates the customer and passes the request's constraints to a scheduler or orchestrator, which chooses a device.
+
+The connection normally works “backwards” from what I initially thought. Home devices are usually behind NAT, so the provider cannot reliably initiate a new inbound connection to them. Instead, the proxy software on the exit device opens and maintains an outbound encrypted connection to provider-controlled orchestration servers. When work arrives, the relay sends an open-tunnel command over that existing channel. Reverse engineering has found variants of this design in Bright Data's SDK, the Popa proxyware family, and PROXYLIB.
+
+The exit software then resolves the target and opens the target-side connection from the home's network. For an ordinary HTTPS proxy request, the provider can relay opaque bytes while TLS remains end-to-end between the customer and the target. Managed scraping and browser products may use a different design in which another part of the provider's system terminates TLS or sends a higher-level HTTP job. Either way, the target sees the residential network's public IP as its immediate TCP peer.
+
+Responses travel back along the same path, forming end-to-end requests.
+
+## Why there are more sellers than device networks
+
+The residential-proxy supply chain is deeper than the initial four-party model. One operator may recruit devices, another may aggregate several sources, a retail provider may mix that capacity into its pool, and many storefronts may resell or white-label the same upstream service.
+
+PacketStream publicly offers a reseller API, while NetNut documents a reseller portal for managing downstream customers and products. These show that resale mechanisms exist, although they do not identify every reseller using them.
+
+## How providers get their device pools
+
+An exit device is only useful while it is on and running code that communicates with the proxy network. There are three main ways the platform gets control software onto it.
+
+<Figure
+  src="/images/learning/residential-proxies/supply-chain-map.png"
+  alt="Residential proxy supply-chain map organized into device networks, orchestration and supply, and routes to market"
+  caption="A rough map of the residential-proxy supply chain, from device networks and botnets to providers and resellers."
+  width={2342}
+  height={1327}
+/>
+
+### 1. Compromised devices and malware
+
+Back in the day there were botnets that offered DDoS as a service. Proxy botnets operate similarly. Attackers compromise routers, computers, phones, or IoT devices and install a proxy component without the owner's knowledge. The device is then registered with orchestration servers and added to the supply.
+
+The 911 S5 botnet is one example. According to the U.S. Department of Justice, its operator used free VPN programs, pirated software, and bundled files to compromise millions of Windows computers and sold access to their IP addresses.
+
+Other networks recruit devices by exploiting vulnerable hardware directly. Europol reported that SocksEscort used AVrecon malware to turn more than 369,000 routers and other devices across 163 countries into proxy nodes; an FBI technical alert documents the router-focused threat.
+
+### 2. Trojan software
+
+The middle category is software that looks legitimate but silently or obscurely turns the device into an exit. A developer may knowingly embed a monetization SDK, an SDK distributor may modify an uploaded application, or a third party may repackage an application without its original developer's involvement.
+
+HUMAN Security documented this ambiguity in the PROXYLIB/LumiApps ecosystem. It found proxy code in Android VPN applications and described a service that let a customer upload an APK and receive a modified version containing the proxy component.
+
+Popa is another example. Researchers found this reusable Android proxy module in streaming, IPTV, and utility applications. XLab found Popa deployed as a plugin on TV devices compromised by the Vo1d botnet. Synthient later observed Popa-family samples communicating with NetNut infrastructure and, in a controlled test, saw NetNut customer traffic leave through a Popa host.
+
+### 3. “Disclosed” bandwidth sharing
+
+There are programs that openly offer money or another benefit in exchange for bandwidth. A user may install a dedicated application such as Honeygain, Pawns.app, PacketStream, or Bright Data's EarnApp. Alternatively, an app publisher can embed an SDK and offer users an ad-free or otherwise enhanced experience in exchange for participating.
+
+IPRoyal says its residential exits come from Pawns.app as well as other established IP-service partners. Oxylabs describes an exclusive wholesale relationship with Honeygain. Bright Data says its pool is sourced through its own applications and third-party SDK partners.
+
+The main question here is: what does “consented” actually mean? Honeygain's partner terms, for example, require a pre-installation consent screen; Bright Data similarly publishes terms about disclosure.
+
+The main exploit is including the software on smart TVs. Include Security found connected-TV-oriented entries in Bright Data's partner configuration, while Play.Works discloses a Bright Data relationship in its privacy policy. The Verge separately reported on an opt-in screen in the Roku app Petflix. How could anyone knowingly accept the terms from a TV app?
+
+Bright Data's goal is to convince the public that consent was given at every step of the stack they own, but is that true? On a higher level, how similar are all three of these categories?
+
+The IPIDEA case is a good example of these lines blurring. In January 2026, Google took legal and technical action against the network after tracing a common proxy backend through commercial monetization SDKs, apparently ordinary VPNs and applications, trojanized Windows binaries, and software preloaded on off-brand devices. Google reported that many of the applications it analyzed did not disclose that they enrolled devices into IPIDEA. IPIDEA denied malicious intent and said applications integrating its SDK were required to display an initial disclosure popup.
+
+Both things can be true at different layers: an SDK operator can impose a consent policy while publishers, repackagers, distributors, or device manufacturers fail to follow it. A provider-level promise therefore cannot establish consent for every device ultimately sold through its pool.
+
+This gray area is the defining feature of the residential-proxy business rather than an edge case. The customer sees a clean API and the target sees a household IP, but the layers between them make it difficult to know whether the device owner knowingly opted in, clicked through an obscure disclosure, installed a trojanized application, or was compromised outright.
+
+The central research question is not simply which of three boxes a provider belongs in. It is whether the supply chain ever actually enforces real consent from edge-device owners.
+
+## Selected sources
+
+- [Google Threat Intelligence: disrupting a residential proxy network](https://cloud.google.com/blog/topics/threat-intelligence/disrupting-largest-residential-proxy-network)
+- [Include Security: smart TVs and the AI-scraping economy](https://blog.includesecurity.com/2026/06/the-smart-tv-in-your-livingroom-is-a-node-in-the-aiscraping-economy/)
+- [Synthient: Popa from sourcing to distribution](https://synthient.com/blog/popa-from-sourcing-to-distribution)
+- [XLab: Vo1d botnet reaches 1.6 million TVs](https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/)
+- [HUMAN Security: PROXYLIB and LumiApps](https://www.humansecurity.com/learn/blog/satori-threat-intelligence-alert-proxylib-and-lumiapps-transform-mobile-devices-into-proxy-nodes/)
+- [DOJ: 911 S5 dismantled](https://www.justice.gov/archives/opa/pr/911-s5-botnet-dismantled-and-its-administrator-arrested-coordinated-international-operation)
+- [Europol: Operation Lightning](https://www.europol.europa.eu/media-press/newsroom/news/europol-and-international-partners-disrupt-socksescort-proxy-service)
+- [PacketStream reseller API](https://packetstream.io/reseller-api/)
+- [NetNut reseller portal](https://help.netnut.io/netnut-documentation/reseller-portal)
+- [The Verge: smart TVs crawling the web for AI](https://www.theverge.com/column/885244/smart-tv-web-crawler-ai)

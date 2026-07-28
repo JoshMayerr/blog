@@ -48,6 +48,19 @@ export const Post = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const Learning = defineDocumentType(() => ({
+  name: "Learning",
+  filePathPattern: `learning/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: { type: "string", required: true },
+    description: { type: "string" },
+    date: { type: "date", required: true },
+    section: { type: "string", required: true },
+  },
+  computedFields,
+}));
+
 export const Drafts = defineDocumentType(() => ({
   name: "Drafts",
   filePathPattern: `drafts/**/*.mdx`,
@@ -70,5 +83,5 @@ export const Drafts = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: "./content",
-  documentTypes: [Post, Page, Drafts],
+  documentTypes: [Post, Page, Drafts, Learning],
 });
