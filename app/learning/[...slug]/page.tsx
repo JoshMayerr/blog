@@ -66,11 +66,11 @@ export default async function LearningEssayPage({
       <header className="flex flex-col mt-5 mb-6">
         <h1 className="font-bold text-2xl mb-3 underline">{essay.title}</h1>
         {essay.description && (
-          <p className="text-md mt-0 mb-1 text-slate-700 dark:text-slate-200">
+          <p className="text-base mt-0 mb-1 text-slate-700 dark:text-slate-200">
             {essay.description}
           </p>
         )}
-        <p className="text-md my-0 text-slate-700 dark:text-slate-200">
+        <p className="text-base my-0 text-slate-700 dark:text-slate-200">
           {formatDate(essay.date)}
         </p>
       </header>

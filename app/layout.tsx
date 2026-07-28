@@ -1,16 +1,15 @@
 import Link from "next/link";
 import "./globals.css";
-import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@/components/analytics";
 import { ModeToggle } from "@/components/mode-toggle";
-import { NextResponse } from "next/server";
-import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL("https://joshmayer.net"),
   title: "Some Thoughts From Josh Mayer",
-  description: "just a simple repository of notes and others from Josh Mayer",
+  description: "Notes, essays, and projects from Josh Mayer.",
 };
 
 interface RootLayoutProps {
@@ -20,15 +19,16 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* <Script src="https://tb-monitor.vercel.app/api/v1/1234-unique-id" /> */}
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || ""} />
+      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+      )}
       <body
         className={`antialiased min-h-screen bg-white dark:bg-black text-slate-900 dark:text-slate-50 font-serif tracking-tighter`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <header className="">
             <div className="fixed top-0 flex justify-between w-full dark:mix-blend-difference px-4 sm:px-10 pt-8 font-bold">
-              <nav className="text-md space-x-6 underline">
+              <nav className="text-base space-x-6 underline">
                 <Link href="/">Home</Link>
                 <Link href="/posts">Notes</Link>
                 <Link href="/projects">Projects</Link>

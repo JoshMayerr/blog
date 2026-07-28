@@ -52,10 +52,10 @@ export default function PostsPage() {
                 +{allLearnings.length}
               </span>
             </div>
-            <p className="text-md my-1 text-slate-700 dark:text-slate-200">
+            <p className="text-base my-1 text-slate-700 dark:text-slate-200">
               Notes and essays organized by what I am learning.
             </p>
-            <p className="text-md mt-2 text-slate-700 dark:text-slate-200">
+            <p className="text-base mt-2 text-slate-700 dark:text-slate-200">
               Last updated {formatDate(note.date)}
             </p>
           </article>
@@ -65,12 +65,12 @@ export default function PostsPage() {
               <h2 className="font-bold text-2xl mb-3">{note.post.title}</h2>
             </Link>
             {note.post.description && (
-              <p className="text-md my-1 text-slate-700 dark:text-slate-200">
+              <p className="text-base my-1 text-slate-700 dark:text-slate-200">
                 {note.post.description}
               </p>
             )}
             {note.post.date && (
-              <p className="text-md mt-2 text-slate-700 dark:text-slate-200">
+              <p className="text-base mt-2 text-slate-700 dark:text-slate-200">
                 {formatDate(note.post.date)}
               </p>
             )}

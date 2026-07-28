@@ -38,9 +38,13 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    alternates: { canonical: post.slug },
     openGraph: {
       title: post.title,
       description: post.description,
+      url: post.slug,
+      type: "article",
+      publishedTime: post.date,
       images: [
         {
           url: ogImageUrl,
@@ -76,14 +80,14 @@ export default async function PostPage({ params }: PostProps) {
   return (
     <article className="mt-6 mb-16">
       <div className="flex flex-col mb-6">
-        <h2 className="font-bold text-2xl mb-3 underline">{post.title}</h2>
+        <h1 className="font-bold text-2xl mb-3 underline">{post.title}</h1>
         {post.description && (
-          <p className="text-md mt-0 mb-1 text-slate-700 dark:text-slate-200">
+          <p className="text-base mt-0 mb-1 text-slate-700 dark:text-slate-200">
             {post.description}
           </p>
         )}
         {post.date && (
-          <p className="text-md my-0 text-slate-700 dark:text-slate-200">
+          <p className="text-base my-0 text-slate-700 dark:text-slate-200">
             {formatDate(post.date)}
           </p>
         )}

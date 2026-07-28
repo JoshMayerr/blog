@@ -4,6 +4,12 @@ import { ProjectItem } from "@/components/project-item";
 export const metadata: Metadata = {
   title: "All Projects",
   description: "A running log of things I've built.",
+  alternates: { canonical: "/projects" },
+  openGraph: {
+    title: "All Projects",
+    description: "A running log of things I've built.",
+    url: "/projects",
+  },
 };
 
 const projectsByYear = [
@@ -191,15 +197,10 @@ const projectsByYear = [
 export default function ProjectsPage() {
   return (
     <article className="py-6 prose dark:prose-invert">
-      <h3>All Projects</h3>
-      <p className="text-md">A running log of things I&apos;ve built.</p>
       <div className="not-prose grid gap-10">
         {projectsByYear.map(({ year, projects }) => (
           <section key={year} className="grid gap-4">
-            <div className="flex items-center gap-3">
-              <h2 className="my-0 text-sm font-bold tabular-nums">{year}</h2>
-              <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
-            </div>
+            <h2 className="my-0 text-xl font-bold tabular-nums">{year}</h2>
             <ul className="grid gap-5">
               {projects.map((project) => (
                 <ProjectItem key={project.title} {...project} />

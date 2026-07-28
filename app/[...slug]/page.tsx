@@ -34,6 +34,12 @@ export async function generateMetadata({
   return {
     title: page.title,
     description: page.description,
+    alternates: { canonical: `/${page.slugAsParams}` },
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: `/${page.slugAsParams}`,
+    },
   };
 }
 
@@ -52,11 +58,18 @@ export default async function PagePage({ params }: PageProps) {
   }
 
   return (
-    <article className="py-6 prose dark:prose-invert">
-      <h3>{page.title}</h3>
-      {page.description && <p className="text-md">{page.description}</p>}
-      <hr />
-      <Mdx code={page.body.code} />
+    <article className="py-6">
+      <header className="flex flex-col mb-6">
+        <h1 className="font-bold text-2xl mb-3 underline">{page.title}</h1>
+        {page.description && (
+          <p className="text-base mt-0 mb-1 text-slate-700 dark:text-slate-200">
+            {page.description}
+          </p>
+        )}
+      </header>
+      <div className="prose dark:prose-invert">
+        <Mdx code={page.body.code} />
+      </div>
     </article>
   );
 }

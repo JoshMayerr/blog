@@ -32,11 +32,11 @@ export default function LearningPage() {
     <div className="mt-6 mb-16">
       <header className="mb-14">
         <h1 className="font-bold text-2xl mb-3 underline">Learning</h1>
-        <p className="text-md my-1 text-slate-700 dark:text-slate-200">
+        <p className="text-base my-1 text-slate-700 dark:text-slate-200">
           Notes and essays organized by what I am learning.
         </p>
         {latestLearningDate && (
-          <p className="text-md mt-2 text-slate-700 dark:text-slate-200">
+          <p className="text-base mt-2 text-slate-700 dark:text-slate-200">
             Last updated {formatDate(latestLearningDate)}
           </p>
         )}
