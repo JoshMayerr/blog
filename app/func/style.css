@@ -1,0 +1,693 @@
+@layer components {
+  .func-workspace {
+    --func-line: var(--elevation-border);
+    --func-muted: var(--content-secondary);
+    --func-accent: var(--brand-primary);
+    margin-top: 0;
+    padding-bottom: 7rem;
+    letter-spacing: 0;
+  }
+  .dark .func-workspace {
+    --func-line: #343d37;
+    --func-muted: #a0aaa4;
+    --func-accent: #a5d2b8;
+  }
+  .func-workspace h1 {
+    font-size: clamp(2.25rem, 7vw, 3.25rem);
+    line-height: 1.08;
+    font-weight: 650;
+    margin: 0.75rem 0 1rem;
+  }
+  .func-workspace h2 {
+    font-size: 1.6rem;
+    line-height: 1.25;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+  .func-workspace h3 {
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  .func-workspace a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .func-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 0.5rem 0 2.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .func-nav a:first-child {
+    margin-right: auto;
+  }
+  .func-kicker,
+  .func-caption,
+  .func-number {
+    font-family: ui-monospace, monospace;
+    font-size: 0.72rem;
+    color: var(--func-muted);
+    line-height: 1.7;
+  }
+  .func-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
+  .func-intro {
+    color: var(--func-muted);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 30rem;
+    margin-bottom: 2.5rem;
+  }
+  .func-muted {
+    color: var(--func-muted);
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+  .func-workspace button {
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    border: 1px solid var(--func-line);
+    border-radius: 4px;
+    padding: 0.65rem 0.9rem;
+    cursor: pointer;
+    background: transparent;
+    line-height: 1.35;
+  }
+  .func-workspace button:hover:not(:disabled) {
+    border-color: var(--func-accent);
+    background: color-mix(in srgb, var(--func-accent) 7%, transparent);
+  }
+  .func-workspace button.primary {
+    background: var(--func-accent);
+    color: white;
+    border-color: var(--func-accent);
+  }
+  .dark .func-workspace button.primary {
+    color: #10291c;
+  }
+  .func-workspace button.primary:hover:not(:disabled) {
+    opacity: 0.9;
+    background: var(--func-accent);
+  }
+  .func-workspace button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .func-workspace
+    :is(button, input, select, textarea, a, summary):focus-visible {
+    outline: 2px solid var(--func-accent);
+    outline-offset: 4px;
+  }
+  .func-workspace button.func-text-button {
+    padding: 0.35rem 0;
+    border: 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .func-steps {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    border-block: 1px solid var(--func-line);
+    margin: 0 0 2rem;
+    padding: 1rem 0;
+  }
+  .func-steps li {
+    flex: 1;
+    font-family: sans-serif;
+    font-size: 0.7rem;
+    color: var(--func-muted);
+  }
+  .func-steps span {
+    display: block;
+    font:
+      0.7rem ui-monospace,
+      monospace;
+    margin-bottom: 0.5rem;
+  }
+  .func-steps [aria-current] {
+    color: var(--func-accent);
+    font-weight: 700;
+  }
+  .func-filters {
+    display: grid;
+    grid-template-columns: 1fr 130px;
+    gap: 1rem;
+    margin: 1.5rem 0 1rem;
+  }
+  .func-workspace label,
+  .func-workspace legend {
+    display: block;
+    font: 0.8rem/1.5 sans-serif;
+  }
+  .func-workspace
+    :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+    display: block;
+    border: 1px solid var(--func-line);
+    background: transparent;
+    border-radius: 4px;
+    padding: 0.7rem;
+    margin-top: 0.5rem;
+    width: 100%;
+    color: inherit;
+  }
+  .func-workspace select option {
+    color: #17211b;
+    background: white;
+  }
+  .func-workspace textarea {
+    min-height: 90px;
+    resize: vertical;
+  }
+  .func-posts {
+    margin-top: 1rem;
+  }
+  .func-posts article {
+    border-top: 1px solid var(--func-line);
+    padding: 1.2rem 0;
+  }
+  .func-post-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .func-post-heading > span {
+    color: var(--func-accent);
+    font: 1.2rem sans-serif;
+  }
+  .func-post-heading .func-kicker {
+    margin-bottom: 0.4rem;
+  }
+  .func-post-detail {
+    background: color-mix(in srgb, var(--func-accent) 5%, transparent);
+    padding: 1rem;
+    margin-top: 0.75rem;
+    line-height: 1.6;
+  }
+  .func-post-detail .func-caption {
+    margin: 0.75rem 0;
+  }
+  .func-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.75rem;
+    flex-wrap: wrap;
+  }
+  .func-actions.end {
+    justify-content: flex-end;
+  }
+  .func-selection {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid var(--func-line);
+  }
+  .func-selection ol {
+    list-style: decimal;
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+  }
+  .func-selection li {
+    margin-top: 0.5rem;
+  }
+  .func-selection button {
+    margin-left: 0.75rem;
+  }
+  .func-section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .func-inline {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0.75rem 0;
+  }
+  .func-arrange {
+    list-style: none;
+  }
+  .func-arrange li {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--func-line);
+  }
+  .func-grow {
+    flex: 1;
+    min-width: 0;
+  }
+  .func-grow p {
+    margin: 0.5rem 0;
+    overflow-wrap: anywhere;
+  }
+  .func-field {
+    margin: 1.5rem 0;
+  }
+  .func-workspace fieldset {
+    margin: 1.5rem 0;
+  }
+  .func-workspace label.func-option {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem;
+    border: 1px solid var(--func-line);
+    margin: 0.7rem 0;
+    cursor: pointer;
+    align-items: flex-start;
+  }
+  .func-option input {
+    margin-top: 0.3rem;
+    accent-color: var(--func-accent);
+  }
+  .func-option small {
+    display: block;
+    color: var(--func-muted);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+  }
+  .func-option:has(input:checked) {
+    border-color: var(--func-accent);
+    background: color-mix(in srgb, var(--func-accent) 5%, transparent);
+  }
+  .func-review {
+    list-style: decimal;
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .func-review li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--func-line);
+    overflow-wrap: anywhere;
+  }
+  .func-review li p {
+    margin-top: 0.5rem;
+  }
+  .func-export {
+    margin: 1.5rem 0;
+    border: 1px solid var(--func-line);
+    padding: 1rem;
+  }
+  .func-workspace summary {
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 0.85rem;
+  }
+  .func-workspace pre {
+    overflow: auto;
+    max-height: 420px;
+    font:
+      0.75rem/1.7 ui-monospace,
+      monospace;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--func-accent) 5%, transparent);
+    margin: 1rem 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .func-error {
+    color: #b42318;
+    border: 1px solid currentColor;
+    padding: 0.75rem;
+    margin: 1rem 0;
+  }
+  .dark .func-error {
+    color: #ffa69e;
+  }
+  .func-empty {
+    padding: 1.5rem 0;
+    color: var(--func-muted);
+  }
+  .func-report-posts {
+    border-block: 1px solid var(--func-line);
+    margin-top: 1.5rem;
+    padding: 1rem 0;
+  }
+  .func-report-posts p {
+    margin: 0.5rem 0;
+  }
+  .func-report-section {
+    margin-top: 2.5rem;
+  }
+  .func-report-section > p {
+    margin: 0.8rem 0;
+    line-height: 1.65;
+  }
+  .func-table-wrap {
+    overflow-x: auto;
+  }
+  .func-workspace table {
+    width: 100%;
+    border-collapse: collapse;
+    font: 0.8rem/1.5 sans-serif;
+    margin-top: 1rem;
+  }
+  .func-workspace th,
+  .func-workspace td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--func-line);
+    white-space: nowrap;
+  }
+  .func-workspace thead {
+    background: color-mix(in srgb, var(--func-accent) 6%, transparent);
+  }
+  .func-links li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--func-line);
+    overflow-wrap: anywhere;
+  }
+  .func-text-columns {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(240px, 1fr);
+    overflow-x: auto;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+  .func-text-columns article {
+    border: 1px solid var(--func-line);
+    padding: 1rem;
+  }
+  .func-text-columns h4 {
+    font: 600 0.85rem/1.5 sans-serif;
+    min-height: 5rem;
+  }
+  .func-text-columns article > div {
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+  }
+  .func-methodology {
+    font: 0.75rem/1.7 sans-serif;
+    color: var(--func-muted);
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--func-line);
+    padding-top: 1rem;
+  }
+  .func-home-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .func-home-cards > a {
+    border: 1px solid var(--func-line);
+    padding: 1.5rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .func-home-cards > a:hover {
+    border-color: var(--func-accent);
+  }
+  .func-home-cards h2 {
+    margin-top: 1.5rem;
+  }
+  .func-home-cards p {
+    line-height: 1.7;
+    color: var(--func-muted);
+    margin-bottom: 1.5rem;
+  }
+  .func-card-link {
+    margin-top: auto;
+    font: 0.8rem sans-serif;
+    color: var(--func-accent);
+  }
+  @media (max-width: 480px) {
+    .func-home-cards {
+      grid-template-columns: 1fr;
+    }
+    .func-filters {
+      grid-template-columns: 1fr 105px;
+    }
+    .func-nav {
+      gap: 1rem;
+    }
+    .func-actions {
+      gap: 0.5rem;
+    }
+    .func-workspace h2 {
+      font-size: 1.4rem;
+    }
+  }
+
+  /* The blog's fixed chrome overlaps long interactive forms, especially on phones. */
+
+  .func-workspace h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+  }
+  .func-archive-stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-block: 1px solid var(--func-line);
+    padding: 1.2rem 0;
+    margin-bottom: 2rem;
+    font: 0.8rem sans-serif;
+    color: var(--func-muted);
+  }
+  .func-archive-stats strong {
+    color: var(--func-accent);
+    font-size: 1.1rem;
+    margin-right: 0.25rem;
+  }
+  .func-recent-posts > a {
+    display: grid;
+    grid-template-columns: 110px 1fr 105px;
+    gap: 1rem;
+    align-items: baseline;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--func-line);
+    text-decoration: none;
+  }
+  .func-recent-posts strong {
+    font: 500 1rem/1.5 sans-serif;
+  }
+  .func-library {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .func-library-main {
+    min-width: 0;
+  }
+  .func-library-toolbar {
+    display: flex;
+    gap: 1rem;
+    align-items: end;
+  }
+  .func-library-toolbar > button {
+    margin-bottom: 1px;
+    padding-block: 0.8rem;
+  }
+  .func-filter-panel {
+    border: 1px solid var(--func-line);
+    background: color-mix(in srgb, var(--func-accent) 3%, transparent);
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .func-filter-panel .func-filters {
+    grid-template-columns: 1fr 1fr;
+    margin: 0 0 0.75rem;
+  }
+  .func-result-toolbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    margin-block: 1rem;
+  }
+  .func-result-toolbar > label {
+    width: 140px;
+  }
+  .func-result-toolbar button[aria-pressed="true"] {
+    border-color: var(--func-accent);
+    background: color-mix(in srgb, var(--func-accent) 7%, transparent);
+  }
+  .func-library .func-selection {
+    margin-top: 0;
+    position: sticky;
+    top: 1.5rem;
+    border-radius: 5px;
+    background: color-mix(in srgb, var(--func-accent) 3%, transparent);
+  }
+  .func-selection > .func-muted {
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    margin-bottom: 0;
+  }
+  .func-selection li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--func-line);
+  }
+  .func-selection li:last-child {
+    border: 0;
+  }
+  .func-selection li strong {
+    font: 500 0.85rem/1.5 sans-serif;
+  }
+  .func-selection button {
+    margin-left: 0;
+  }
+  .func-post-description {
+    color: var(--func-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0.7rem 0;
+  }
+  .func-post-heading .func-selected-badge {
+    font: 0.65rem sans-serif;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--func-line);
+    border-radius: 3px;
+    height: fit-content;
+  }
+  .func-posts .is-selected {
+    border-left: 2px solid var(--func-accent);
+    padding-left: 1rem;
+  }
+  @media (max-width: 700px) {
+    .func-library {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .func-library .func-selection {
+      position: static;
+    }
+    .func-recent-posts > a {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+    .func-archive-stats {
+      gap: 1rem;
+    }
+  }
+  @media (max-width: 380px) {
+    .func-result-toolbar {
+      flex-wrap: wrap;
+    }
+  }
+
+  .seating-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    background: color-mix(in srgb, var(--func-accent) 5%, transparent);
+    font: 0.85rem sans-serif;
+    border: 1px solid var(--func-line);
+  }
+  .seating-summary strong {
+    margin-right: 0.25rem;
+  }
+  .func-notice {
+    padding: 1rem;
+    background: color-mix(in srgb, var(--func-accent) 6%, transparent);
+    border-left: 2px solid var(--func-accent);
+    margin-block: 1rem;
+    line-height: 1.6;
+  }
+  .seating-editor {
+    border: 1px solid var(--func-line);
+    padding: 1.25rem;
+    margin-block: 1rem;
+    background: color-mix(in srgb, var(--func-accent) 3%, transparent);
+  }
+  .seating-editor h3 {
+    margin-bottom: 1rem;
+  }
+  .seating-roster {
+    margin: 1.5rem 0;
+  }
+  .seating-roster-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--func-line);
+  }
+  .seating-roster-row strong {
+    font: 500 0.95rem/1.5 sans-serif;
+    overflow-wrap: anywhere;
+  }
+  .seating-rule-label {
+    font: 0.7rem sans-serif;
+    border: 1px solid var(--func-line);
+    border-radius: 3px;
+    padding: 0.5rem;
+    min-width: 68px;
+    text-align: center;
+  }
+  .seating-table-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-block: 1.5rem;
+  }
+  .seating-table {
+    border: 1px solid var(--func-line);
+    padding: 1.5rem;
+    border-radius: 6px;
+  }
+  .seating-table-icon {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 1px solid var(--func-accent);
+    outline: 1px dashed var(--func-line);
+    outline-offset: 5px;
+    background: color-mix(in srgb, var(--func-accent) 5%, transparent);
+    margin: 0.5rem 0 1.5rem;
+    font:
+      0.9rem ui-monospace,
+      monospace;
+    color: var(--func-accent);
+  }
+  .seating-table ol {
+    padding-left: 1.1rem;
+    list-style: decimal;
+    margin: 1rem 0;
+  }
+  .seating-table li,
+  .seating-editor li {
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+  }
+  .seating-review-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 600px) {
+    .seating-review-grid {
+      grid-template-columns: 1fr;
+    }
+    .seating-roster-row {
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .seating-roster-row .func-grow {
+      min-width: 50%;
+    }
+    .seating-summary {
+      gap: 1rem;
+    }
+  }
+}

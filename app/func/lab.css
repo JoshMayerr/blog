@@ -1,0 +1,217 @@
+@import "@repo/tailwind-config";
+@source "../../node_modules/@repo/core-ui/dist";
+@source "../../components/func";
+@source "./";
+@layer base {
+  body {
+    margin: 0;
+    background: var(--bg-primary);
+    font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", sans-serif;
+  }
+}
+.lab-layout {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr);
+  gap: 32px;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 24px;
+  min-height: 100vh;
+}
+.lab-sidebar {
+  position: sticky;
+  top: 24px;
+  height: calc(100vh - 48px);
+  max-height: 1080px;
+}
+.lab-logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+  gap: 12px;
+}
+.lab-logo svg {
+  width: 84px;
+  height: 20px;
+}
+.lab-workspace {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 32px 0 24px;
+}
+.lab-workspace-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--elevation-border);
+  border-radius: 8px;
+  font-weight: 600;
+}
+.lab-workspace strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+.lab-workspace span:not(.lab-workspace-icon) {
+  font-size: 11px;
+  color: var(--content-tertiary);
+}
+.lab-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lab-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--content-secondary);
+  text-decoration: none;
+}
+.lab-nav a:hover {
+  background: var(--bg-tertiary);
+}
+.lab-nav a[aria-current] {
+  background: var(--brand-muted);
+  color: var(--brand-primary);
+}
+.lab-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  margin-left: auto;
+}
+.lab-sidebar-bottom {
+  margin-top: auto;
+  padding: 24px 0;
+}
+.lab-sidebar-bottom p {
+  font-size: 12px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+.lab-sidebar-bottom > span {
+  color: var(--content-tertiary);
+  font-size: 10px;
+}
+.lab-main-column {
+  min-width: 0;
+}
+.lab-topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  min-height: 52px;
+  margin-bottom: 28px;
+  font-size: 12px;
+  color: var(--content-tertiary);
+}
+.lab-topbar > span > span {
+  margin: 0 10px;
+}
+.lab-topbar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--content-secondary);
+}
+.lab-skip {
+  position: absolute;
+  left: 24px;
+  top: -100px;
+  z-index: 100;
+  background: var(--bg-primary);
+  padding: 12px;
+}
+.lab-skip:focus {
+  top: 10px;
+}
+.lab-overview h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.lab-overview > p {
+  color: var(--content-secondary);
+  margin: 12px 0 28px;
+}
+.lab-tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.lab-tools h2 {
+  margin: 18px 0 12px;
+  font-size: 18px;
+}
+.lab-tools p {
+  color: var(--content-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 72px;
+}
+@media (max-width: 1050px) {
+  .lab-layout {
+    grid-template-columns: 225px minmax(0, 1fr);
+    gap: 20px;
+    padding: 16px;
+  }
+  .lab-sidebar {
+    top: 16px;
+    height: calc(100vh - 32px);
+  }
+  .lab-workspace {
+    gap: 8px;
+  }
+  .lab-workspace strong {
+    font-size: 11px;
+  }
+}
+@media (max-width: 760px) {
+  .lab-layout {
+    display: block;
+    padding: 12px;
+  }
+  .lab-sidebar {
+    height: auto;
+    position: static;
+  }
+  .lab-logo {
+    padding: 16px 0;
+  }
+  .lab-workspace,
+  .lab-sidebar-bottom {
+    display: none;
+  }
+  .lab-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 12px 0;
+  }
+  .lab-nav a {
+    flex-shrink: 0;
+    padding: 9px;
+    font-size: 12px;
+    gap: 7px;
+  }
+  .lab-topbar {
+    margin: 16px 0;
+    min-height: 30px;
+  }
+  .lab-tools {
+    grid-template-columns: 1fr;
+  }
+}
+@theme inline {
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", sans-serif;
+}

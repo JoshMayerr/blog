@@ -1,0 +1,457 @@
+openapi: 3.1.0
+info:
+  title: Josh Mayer Blog Comparisons
+  version: 1.0.0
+  description: TollBit Agent Function for the comparisons workflow at
+    joshmayer.net/func/comparisons.
+servers:
+  - url: https://www.joshmayer.net/api/agent-functions/joshmayer-comparisons/v1.0.0
+x-guidance: Operate on Josh Mayer's published blog archive. Use list-posts to
+  find valid slugs, then complete the workflow in one call. All capability
+  operations require a TollBit payment token, including free operations. Read
+  the skill for input and result guidance.
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Service is live; configured indicates whether payment redemption
+            can be attempted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  version:
+                    type: string
+                  configured:
+                    type: boolean
+                required:
+                  - status
+                  - version
+                  - configured
+                additionalProperties: false
+  /skill:
+    get:
+      operationId: getSkill
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Agent usage guidance
+          content:
+            text/markdown:
+              schema:
+                type: string
+  /posts:
+    post:
+      operationId: listPosts
+      summary: Find published posts
+      description: Search published blog posts by text and/or year. Returns valid
+        slugs, titles, descriptions, dates, and estimated reading times for
+        collections and comparisons.
+      x-guidance: Search by query and/or year to obtain valid full post slugs. Only
+        published posts are included.
+      x-tollbit:
+        price:
+          priceMicros: 0
+          currency: USD
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+        - in: header
+          name: x-tollbit-agent-payment-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  maxLength: 200
+                year:
+                  type: string
+                  pattern: ^[0-9]{4}$
+              additionalProperties: false
+      responses:
+        "200":
+          description: Completed operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    slug:
+                      type: string
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    date:
+                      type: string
+                    minutes:
+                      type: integer
+                      minimum: 0
+                  required:
+                    - slug
+                    - title
+                    - description
+                    - date
+                    - minutes
+                  additionalProperties: false
+        "400":
+          description: Invalid operation input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "401":
+          description: Invalid or rejected payment token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "402":
+          description: Payment token required, including for zero-priced calls
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "403":
+          description: Token targets a different operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "413":
+          description: Request exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "502":
+          description: Payment redemption unavailable or unexpected response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "503":
+          description: TollBit runtime configuration missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+  /compare:
+    post:
+      operationId: comparePosts
+      summary: Josh Mayer Blog Comparisons
+      description: "Compare 2–4 distinct published posts in one call. Dimensions:
+        overview (metadata), terms (exact shared words), links (shared URLs),
+        text (side-by-side plain text). No AI-generated semantic claims."
+      x-guidance: Use list-posts to find slugs. Pass all selected posts in one call;
+        their order is preserved. No files are downloaded and nothing is
+        published automatically.
+      x-tollbit:
+        price:
+          priceMicros: 0
+          currency: USD
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+        - in: header
+          name: x-tollbit-agent-payment-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slugs:
+                  type: array
+                  minItems: 2
+                  maxItems: 4
+                  uniqueItems: true
+                  items:
+                    type: string
+                dimensions:
+                  type: array
+                  minItems: 1
+                  uniqueItems: true
+                  items:
+                    type: string
+                    enum:
+                      - overview
+                      - terms
+                      - links
+                      - text
+                  default:
+                    - overview
+                    - terms
+                    - links
+              required:
+                - slugs
+              additionalProperties: false
+      responses:
+        "200":
+          description: Completed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  input:
+                    type: object
+                    properties:
+                      slugs:
+                        type: array
+                        minItems: 2
+                        maxItems: 4
+                        uniqueItems: true
+                        items:
+                          type: string
+                      dimensions:
+                        type: array
+                        minItems: 1
+                        uniqueItems: true
+                        items:
+                          type: string
+                          enum:
+                            - overview
+                            - terms
+                            - links
+                            - text
+                        default:
+                          - overview
+                          - terms
+                          - links
+                    required:
+                      - slugs
+                    additionalProperties: false
+                  posts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        slug:
+                          type: string
+                        title:
+                          type: string
+                        date:
+                          type: string
+                        description:
+                          type: string
+                        words:
+                          type: integer
+                          minimum: 0
+                        minutes:
+                          type: integer
+                          minimum: 0
+                        linkCount:
+                          type: integer
+                          minimum: 0
+                        text:
+                          type: string
+                      required:
+                        - slug
+                        - title
+                      additionalProperties: false
+                  sharedTerms:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        term:
+                          type: string
+                        counts:
+                          type: array
+                          items:
+                            type: integer
+                            minimum: 0
+                      required:
+                        - term
+                        - counts
+                      additionalProperties: false
+                  sharedLinks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                        slugs:
+                          type: array
+                          items:
+                            type: string
+                      required:
+                        - url
+                        - slugs
+                      additionalProperties: false
+                  methodology:
+                    type: string
+                required:
+                  - input
+                  - posts
+                  - sharedTerms
+                  - sharedLinks
+                  - methodology
+                additionalProperties: false
+        "400":
+          description: Invalid operation input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "401":
+          description: Invalid or rejected payment token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "402":
+          description: Payment token required, including for zero-priced calls
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "403":
+          description: Token targets a different operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "413":
+          description: Request exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "502":
+          description: Payment redemption unavailable or unexpected response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "503":
+          description: TollBit runtime configuration missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false

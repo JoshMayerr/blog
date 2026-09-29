@@ -1,0 +1,325 @@
+openapi: 3.1.0
+info:
+  title: Event Seating Planner
+  version: 1.0.0
+  description: TollBit Agent Function for the seating workflow at
+    joshmayer.net/func/seating.
+servers:
+  - url: https://www.joshmayer.net/api/agent-functions/joshmayer-seating/v1.0.0
+x-guidance: Plan seating from caller-supplied event data. Read the skill for
+  limits and result statuses. All capability calls require a TollBit payment
+  token, including zero-priced calls.
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Service is live; configured indicates whether payment redemption
+            can be attempted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  version:
+                    type: string
+                  configured:
+                    type: boolean
+                required:
+                  - status
+                  - version
+                  - configured
+                additionalProperties: false
+  /skill:
+    get:
+      operationId: getSkill
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Agent usage guidance
+          content:
+            text/markdown:
+              schema:
+                type: string
+  /plan:
+    post:
+      operationId: planSeating
+      summary: Event Seating Planner
+      description: Assign 1–40 guests to 1–12 tables while respecting table capacities
+        and keep-together/keep-apart rules. Returns a complete plan, proven
+        infeasibility, or an explicit search-limit result. Does not contact
+        guests or make reservations.
+      x-guidance: "Supply the complete guest list, table capacities, and optional pair
+        rules. Inspect status before presenting a plan: search_limit is not
+        proof of infeasibility."
+      x-tollbit:
+        price:
+          priceMicros: 0
+          currency: USD
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+        - in: header
+          name: x-tollbit-agent-payment-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event:
+                  type: string
+                  minLength: 1
+                  maxLength: 120
+                guests:
+                  type: array
+                  minItems: 1
+                  maxItems: 40
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      name:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                    required:
+                      - id
+                      - name
+                    additionalProperties: false
+                tables:
+                  type: array
+                  minItems: 1
+                  maxItems: 12
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      name:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      capacity:
+                        type: integer
+                        minimum: 1
+                        maximum: 20
+                    required:
+                      - id
+                      - name
+                      - capacity
+                    additionalProperties: false
+                rules:
+                  type: array
+                  maxItems: 100
+                  default: []
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - together
+                          - apart
+                      guestA:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                      guestB:
+                        type: string
+                        minLength: 1
+                        maxLength: 80
+                    required:
+                      - type
+                      - guestA
+                      - guestB
+                    additionalProperties: false
+              required:
+                - event
+                - guests
+                - tables
+              additionalProperties: false
+      responses:
+        "200":
+          description: Completed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - complete
+                      - infeasible
+                      - search_limit
+                  event:
+                    type: string
+                  totalGuests:
+                    type: integer
+                  totalSeats:
+                    type: integer
+                  message:
+                    type: string
+                  tables:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          minLength: 1
+                          maxLength: 80
+                        name:
+                          type: string
+                          minLength: 1
+                          maxLength: 80
+                        capacity:
+                          type: integer
+                        remaining:
+                          type: integer
+                        guests:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                minLength: 1
+                                maxLength: 80
+                              name:
+                                type: string
+                                minLength: 1
+                                maxLength: 80
+                            required:
+                              - id
+                              - name
+                            additionalProperties: false
+                      required:
+                        - id
+                        - name
+                        - capacity
+                        - remaining
+                        - guests
+                      additionalProperties: false
+                required:
+                  - status
+                  - event
+                  - totalGuests
+                  - totalSeats
+                  - message
+                  - tables
+                additionalProperties: false
+        "400":
+          description: Invalid operation input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "401":
+          description: Invalid or rejected payment token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "402":
+          description: Payment token required, including for zero-priced calls
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "403":
+          description: Token targets a different operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "413":
+          description: Request exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "502":
+          description: Payment redemption unavailable or unexpected response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "503":
+          description: TollBit runtime configuration missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false

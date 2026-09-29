@@ -1,0 +1,27 @@
+{
+  "event": "Publication check",
+  "guests": [
+    {
+      "id": "a",
+      "name": "Alex"
+    },
+    {
+      "id": "b",
+      "name": "Sam"
+    }
+  ],
+  "tables": [
+    {
+      "id": "one",
+      "name": "Table One",
+      "capacity": 2
+    }
+  ],
+  "rules": [
+    {
+      "type": "together",
+      "guestA": "a",
+      "guestB": "b"
+    }
+  ]
+}

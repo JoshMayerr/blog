@@ -1,0 +1,13 @@
+{
+  "title": "Example collection",
+  "items": [
+    {
+      "slug": "/posts/aiweb",
+      "note": "First reading"
+    },
+    {
+      "slug": "/posts/aiweb2"
+    }
+  ],
+  "format": "json"
+}

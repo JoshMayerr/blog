@@ -1,0 +1,453 @@
+openapi: 3.1.0
+info:
+  title: Josh Mayer Blog Collections
+  version: 1.0.0
+  description: TollBit Agent Function for the collections workflow at
+    joshmayer.net/func/collections.
+servers:
+  - url: https://www.joshmayer.net/api/agent-functions/joshmayer-collections/v1.0.0
+x-guidance: Operate on Josh Mayer's published blog archive. Use list-posts to
+  find valid slugs, then complete the workflow in one call. All capability
+  operations require a TollBit payment token, including free operations. Read
+  the skill for input and result guidance.
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Service is live; configured indicates whether payment redemption
+            can be attempted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  version:
+                    type: string
+                  configured:
+                    type: boolean
+                required:
+                  - status
+                  - version
+                  - configured
+                additionalProperties: false
+  /skill:
+    get:
+      operationId: getSkill
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Agent usage guidance
+          content:
+            text/markdown:
+              schema:
+                type: string
+  /posts:
+    post:
+      operationId: listPosts
+      summary: Find published posts
+      description: Search published blog posts by text and/or year. Returns valid
+        slugs, titles, descriptions, dates, and estimated reading times for
+        collections and comparisons.
+      x-guidance: Search by query and/or year to obtain valid full post slugs. Only
+        published posts are included.
+      x-tollbit:
+        price:
+          priceMicros: 0
+          currency: USD
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+        - in: header
+          name: x-tollbit-agent-payment-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  maxLength: 200
+                year:
+                  type: string
+                  pattern: ^[0-9]{4}$
+              additionalProperties: false
+      responses:
+        "200":
+          description: Completed operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    slug:
+                      type: string
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    date:
+                      type: string
+                    minutes:
+                      type: integer
+                      minimum: 0
+                  required:
+                    - slug
+                    - title
+                    - description
+                    - date
+                    - minutes
+                  additionalProperties: false
+        "400":
+          description: Invalid operation input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "401":
+          description: Invalid or rejected payment token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "402":
+          description: Payment token required, including for zero-priced calls
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "403":
+          description: Token targets a different operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "413":
+          description: Request exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "502":
+          description: Payment redemption unavailable or unexpected response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "503":
+          description: TollBit runtime configuration missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+  /create:
+    post:
+      operationId: createCollection
+      summary: Josh Mayer Blog Collections
+      description: Create a reading collection in one call, preserving the supplied
+        post order and notes. Returns the collection and downloadable Markdown
+        or JSON content. Does not publish or automatically download files.
+      x-guidance: Use list-posts to find slugs. Pass all selected posts in one call;
+        their order is preserved. No files are downloaded and nothing is
+        published automatically.
+      x-tollbit:
+        price:
+          priceMicros: 0
+          currency: USD
+      parameters:
+        - in: header
+          name: x-tollbit-property
+          required: false
+          description: Opaque property context supplied by TollBit for attribution.
+          schema:
+            type: string
+        - in: header
+          name: x-tollbit-agent-payment-token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  minLength: 1
+                  maxLength: 120
+                items:
+                  type: array
+                  minItems: 1
+                  maxItems: 20
+                  items:
+                    type: object
+                    properties:
+                      slug:
+                        type: string
+                        description: Full post path from listPosts, such as /posts/aiweb.
+                      note:
+                        type: string
+                        maxLength: 1000
+                    required:
+                      - slug
+                    additionalProperties: false
+                format:
+                  type: string
+                  enum:
+                    - markdown
+                    - json
+                  default: markdown
+                includeText:
+                  type: boolean
+                  default: false
+              required:
+                - title
+                - items
+              additionalProperties: false
+      responses:
+        "200":
+          description: Completed operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  totalMinutes:
+                    type: integer
+                    minimum: 0
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        slug:
+                          type: string
+                        title:
+                          type: string
+                        date:
+                          type: string
+                        url:
+                          type: string
+                        minutes:
+                          type: integer
+                          minimum: 0
+                        note:
+                          type: string
+                        text:
+                          type: string
+                      required:
+                        - slug
+                        - title
+                        - date
+                        - url
+                        - minutes
+                        - note
+                      additionalProperties: false
+                  input:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        minLength: 1
+                        maxLength: 120
+                      items:
+                        type: array
+                        minItems: 1
+                        maxItems: 20
+                        items:
+                          type: object
+                          properties:
+                            slug:
+                              type: string
+                              description: Full post path from listPosts, such as /posts/aiweb.
+                            note:
+                              type: string
+                              maxLength: 1000
+                          required:
+                            - slug
+                          additionalProperties: false
+                      format:
+                        type: string
+                        enum:
+                          - markdown
+                          - json
+                        default: markdown
+                      includeText:
+                        type: boolean
+                        default: false
+                    required:
+                      - title
+                      - items
+                    additionalProperties: false
+                  content:
+                    type: string
+                  filename:
+                    type: string
+                  mimeType:
+                    type: string
+                required:
+                  - title
+                  - totalMinutes
+                  - items
+                  - input
+                  - content
+                  - filename
+                  - mimeType
+                additionalProperties: false
+        "400":
+          description: Invalid operation input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "401":
+          description: Invalid or rejected payment token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "402":
+          description: Payment token required, including for zero-priced calls
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "403":
+          description: Token targets a different operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "413":
+          description: Request exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "502":
+          description: Payment redemption unavailable or unexpected response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
+        "503":
+          description: TollBit runtime configuration missing
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                  - error
+                additionalProperties: false
