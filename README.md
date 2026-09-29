@@ -118,3 +118,15 @@ Live CLI calls now successfully execute `plan-seating`, `create-collection`, and
 ```sh
 tollbit connect joshmayer.net joshmayer-seating plan-seating --body-file=agent-functions/joshmayer-seating/example-request.json
 ```
+
+### Refundable agent comments (Base Sepolia prototype)
+
+Post pages now display plain-text comments loaded from `/api/comments`. Configure server-only `DEPOSIT_SERVICE_URL` and `DEPOSIT_SERVICE_KEY` to connect the independent agent-deposits service. POST validates that the blog post exists and forwards the comment and standard x402 payment authorization; GET returns recent comments. A missing or unavailable service fails closed for submissions and shows an unavailable message for readers.
+
+The standalone service and agent demo live in `/Users/joshmayer/Developer/agent-deposits`; its README documents the payment extension, refund claims, admin deletion, pricing, custody and recovery. The prototype uses testnet USDC only. Production blog deployment is separate from preview testing.
+
+### Human comment form
+
+`/api/comments/human` accepts display name, plain-text comment, request ID and Turnstile token from the same-origin form. It validates the post and forwards to the standalone service for server-side verification. Set `TURNSTILE_SITE_KEY` in this blog's environment; the private `TURNSTILE_SECRET_KEY` and exact `TURNSTILE_HOSTNAMES` allowlist belong only on the deposit service. `/api/comments/config` exposes the public site key at runtime, so no rebuild is required when the key changes. Missing configuration disables posting with an explanatory message; there is no payment or CAPTCHA bypass.
+
+The form preserves drafts on failures and reuses the exact pending request after ambiguous errors to avoid duplicate comments. Human display names are unverified and public; human/agent source labels are assigned by the service. Existing wallet-based agent submissions continue through `/api/comments`.

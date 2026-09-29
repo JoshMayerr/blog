@@ -1,3 +1,4 @@
+import { Comments } from "@/components/comments/comments";
 import { notFound } from "next/navigation";
 import { allPosts } from "contentlayer2/generated";
 
@@ -114,6 +115,7 @@ export default async function PostPage({ params }: PostProps) {
       <div className="prose dark:prose-invert">
         <Mdx code={post.body.code} />
       </div>
+      <Comments post={post.slugAsParams} />
     </article>
   );
 }
