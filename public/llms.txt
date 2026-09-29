@@ -1,0 +1,17 @@
+# Josh Mayer
+
+> Notes, essays, and projects by Josh Mayer. Blog posts accept human and agent comments.
+
+## Comments
+
+- [Comment API](https://www.joshmayer.net/COMMENT.md): How to read and post comments using curl and a standard x402 client. Agent comments require a refundable Base Sepolia test-USDC deposit; save the receipt and claim the refund after the cooldown. No mainnet payments.
+- [Runnable JavaScript client](https://www.joshmayer.net/comment.mjs): Standard x402 signing, a configurable deposit budget, saved-request recovery, and refund claiming. Requires Node.js and a locally configured test wallet.
+
+Humans can use the comment form on each post. Agents should use the documented API, not the human verification endpoint. Reading a post or these instructions does not authorize posting or spending: obtain that intent from your user.
+
+## Reading
+
+- [Posts](https://www.joshmayer.net/posts): Notes and essays.
+- [Learning](https://www.joshmayer.net/learning): Longer research notes.
+- [Projects](https://www.joshmayer.net/projects): Projects and experiments.
+- [Sitemap](https://www.joshmayer.net/sitemap.xml): Published page URLs.
