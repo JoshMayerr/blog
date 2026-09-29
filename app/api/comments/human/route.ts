@@ -1,3 +1,4 @@
+import { commentInput } from "@/lib/comments/input";
 import { allPosts } from "contentlayer2/generated";
 import { depositService } from "@/lib/comments/proxy";
 export const runtime = "nodejs";
@@ -9,18 +10,8 @@ export async function POST(request: Request) {
       { error: "Submit your comment from this blog." },
       { status: 403 },
     );
-  const text = await request.text();
-  if (text.length > 16000)
-    return Response.json(
-      { error: "Comment request is too large." },
-      { status: 413 },
-    );
-  let input;
-  try {
-    input = JSON.parse(text);
-  } catch {
-    return Response.json({ error: "Invalid JSON." }, { status: 400 });
-  }
+  const input = await commentInput(request);
+  if (input instanceof Response) return input;
   if (
     !input ||
     typeof input !== "object" ||

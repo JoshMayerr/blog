@@ -21,7 +21,9 @@ if (mode === "claim") {
     );
   try {
     await readFile("pending-comment.json");
-    throw new Error("A saved payment exists. Use resume, or archive pending-comment.json and receipt.json before a new comment.");
+    throw new Error(
+      "A saved payment exists. Use resume, or archive pending-comment.json and receipt.json before a new comment.",
+    );
   } catch (error) {
     if (error.code !== "ENOENT") throw error;
   }
@@ -38,7 +40,15 @@ if (mode === "claim") {
     NETWORK,
     new ExactEvmScheme(account),
   );
-  client.setSpendControls({ allowedAssets: [{ network: NETWORK, asset: ASSET, maxAmountPerPayment: process.env.MAX_DEPOSIT_MICROS || "100000" }] });
+  client.setSpendControls({
+    allowedAssets: [
+      {
+        network: NETWORK,
+        asset: ASSET,
+        maxAmountPerPayment: process.env.MAX_DEPOSIT_MICROS || "100000",
+      },
+    ],
+  });
   client.registerPolicy((_version, offers) =>
     offers.filter(
       (required) =>
@@ -50,6 +60,7 @@ if (mode === "claim") {
     ),
   );
   let recovery;
+  let persisted = false;
   // Standard fetch transport handles 402 -> payment signing -> retry. This thin
   // transport hook saves the exact paid request before sending for crash recovery.
   const paidFetch = wrapFetchWithPayment(async (request) => {
@@ -62,10 +73,11 @@ if (mode === "claim") {
       await writeFile(
         "pending-comment.json",
         JSON.stringify(recovery, null, 2),
-        { mode: 0o600 },
+        { mode: 0o600, flag: "wx" },
       );
+      persisted = true;
     }
-    return fetch(request);
+    return fetch(request, { redirect: "error" });
   }, client);
   let response;
   try {
@@ -75,7 +87,7 @@ if (mode === "claim") {
       body: JSON.stringify(input),
     });
   } catch (error) {
-    if (!recovery) throw error;
+    if (!persisted) throw error;
     console.error("Request interrupted; recovering the same signed payment.");
   }
   if (response?.status === 200) {
@@ -92,7 +104,9 @@ if (mode === "claim") {
     );
   }
 } else {
-  throw new Error("Use: node comment.mjs post BLOG_ORIGIN POST_SLUG \"comment\"; resume pending-comment.json; or claim receipt.json");
+  throw new Error(
+    'Use: node comment.mjs post BLOG_ORIGIN POST_SLUG "comment"; resume pending-comment.json; or claim receipt.json',
+  );
 }
 
 async function submit({ endpoint, input, headers }) {
@@ -101,6 +115,7 @@ async function submit({ endpoint, input, headers }) {
       method: "POST",
       headers,
       body: JSON.stringify(input),
+      redirect: "error",
     });
     const result = await response.json();
     if (response.status === 200) {
