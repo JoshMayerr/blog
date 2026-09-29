@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  /><title>Research book reader</title
+  ><link rel="stylesheet" href="BookReader.css" /><style>
+    html,
+    body,
+    #BookReader {
+      height: 100%;
+      margin: 0;
+    }
+    .BRtoolbarRight,
+    .BRinfo,
+    .BRshare {
+      display: none !important;
+    }
+  </style>
+  <div id="BookReader"></div>
+  <script src="jquery-3.js"></script>
+  <script src="BookReader.js"></script>
+  <script>
+    let reader;
+    window.addEventListener("message", function (event) {
+      if (event.source !== parent || event.origin !== location.origin) return;
+      const msg = event.data;
+      if (msg.type === "book-init" && !reader) {
+        const data = Array.from({ length: msg.pageCount }, (_, i) => [
+          {
+            width: 850,
+            height: 1100,
+            uri: "/func/race/book-image/" + (i + 1),
+            pageNum: String(i + 1),
+          },
+        ]);
+        reader = new BookReader({
+          el: "#BookReader",
+          ppi: 100,
+          data,
+          bookTitle: msg.title,
+          ui: "embed",
+          defaults: "mode/1up",
+          imagesBaseURL: "/vendor/bookreader/images/",
+          enableSearch: false,
+          enableTtsPlugin: false,
+          enableChaptersPlugin: false,
+          enableUrlPlugin: false,
+          enablePageResume: false,
+        });
+        reader.init();
+        let previous = -1;
+        reader.bind("pageChanged", function () {
+          const page = reader.currentIndex() + 1;
+          if (page !== previous) {
+            previous = page;
+            parent.postMessage({ type: "book-page", page }, location.origin);
+          }
+        });
+        reader.jumpToIndex(
+          Math.max(0, msg.page - 1),
+          undefined,
+          undefined,
+          true,
+        );
+        parent.postMessage({ type: "book-ready" }, location.origin);
+        parent.postMessage(
+          { type: "book-page", page: reader.currentIndex() + 1 },
+          location.origin,
+        );
+      }
+      if (
+        msg.type === "book-jump" &&
+        reader &&
+        reader.currentIndex() !== msg.page - 1
+      )
+        reader.jumpToIndex(msg.page - 1, undefined, undefined, true);
+    });
+    parent.postMessage({ type: "book-loaded" }, location.origin);
+  </script>
+</html>

@@ -13,6 +13,7 @@ export default defineConfig([
   },
   globalIgnores([
     ".next/**",
+    "public/vendor/bookreader/**",
     ".contentlayer/**",
     "out/**",
     "build/**",
