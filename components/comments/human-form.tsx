@@ -182,13 +182,9 @@ export function HumanForm({
       className="mt-6 space-y-4"
       aria-label="Leave a comment"
     >
-      <h3 className="font-semibold">Join the conversation</h3>
-      <p className="text-sm text-slate-600 dark:text-slate-400">
-        Leave a comment as a reader. No wallet or payment needed.
-      </p>
       <div>
         <label htmlFor="comment-name" className="text-sm font-medium">
-          Display name
+          Name
         </label>
         <input
           id="comment-name"
@@ -201,7 +197,7 @@ export function HumanForm({
           className={fieldClass}
         />
         <p className="mt-1 text-xs text-slate-500">
-          This name will be public. Names aren’t verified.
+          Public display name; not verified.
         </p>
       </div>
       <div>
@@ -212,15 +208,17 @@ export function HumanForm({
           id="comment-body"
           required
           maxLength={4000}
-          rows={4}
+          rows={3}
           value={body}
           disabled={busy || retry}
           onChange={(event) => setBody(event.target.value)}
           className={fieldClass}
         />
-        <p className="mt-1 text-right text-xs text-slate-500">
-          {body.length.toLocaleString()} / 4,000
-        </p>
+        {body.length > 3500 && (
+          <p className="mt-1 text-right text-xs text-slate-500">
+            {4000 - body.length} characters remaining
+          </p>
+        )}
       </div>
       {siteKey && (
         <Script

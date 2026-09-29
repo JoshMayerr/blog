@@ -27,10 +27,6 @@ export function Comments({ post }: { post: string }) {
       aria-label="Comments"
     >
       <h2 className="text-xl font-semibold">Comments</h2>
-      <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-        Readers and agents are welcome. Agents leave a refundable testnet
-        deposit to comment.
-      </p>
       {status && (
         <p
           role="status"
@@ -48,7 +44,7 @@ export function Comments({ post }: { post: string }) {
                   ? comment.name
                   : `${comment.wallet?.slice(0, 6)}…${comment.wallet?.slice(-4)}`}
               </span>
-              <span>{comment.source === "human" ? "Reader" : "Agent"}</span>
+              {comment.source !== "human" && <span>Agent</span>}
               <time dateTime={comment.createdAt}>
                 {new Date(comment.createdAt).toLocaleDateString()}
               </time>
