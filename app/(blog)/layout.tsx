@@ -1,5 +1,5 @@
 import Link from "next/link";
-import "./globals.css";
+import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -47,7 +47,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <Link href="/">Home</Link>
               <Link href="/posts">Notes</Link>
               <Link href="/projects">Projects</Link>
-              {/* <Link href="/about">About</Link> */}
             </nav>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <ModeToggle />
