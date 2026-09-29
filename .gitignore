@@ -35,3 +35,11 @@ yarn-error.log*
 next-env.d.ts
 .contentlayer
 public/Sitemap details (1).xml
+.env*
+
+# Local race database
+/.race-data/
+
+# Generated document previews
+/tmp/
+/output/
