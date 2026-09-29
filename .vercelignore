@@ -3,3 +3,5 @@ node_modules
 .race-data
 tmp
 output
+.env
+.env.*
