@@ -35,6 +35,9 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="describedby" href="/llms.txt" type="text/plain" />
+      </head>
       {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
       )}
